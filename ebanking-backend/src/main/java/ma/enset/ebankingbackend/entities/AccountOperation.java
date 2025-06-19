@@ -11,9 +11,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Builder @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+
 public class AccountOperation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
