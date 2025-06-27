@@ -24,7 +24,6 @@ public abstract class BankAccount {
     private double balance;
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
-    private String currency;
 
     @ManyToOne
     private Customer customer;
