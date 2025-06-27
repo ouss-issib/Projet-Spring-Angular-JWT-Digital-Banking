@@ -40,6 +40,22 @@ public class BankAccountServiceImpl implements BankAccountService {
         return dtoMapper.fromCustomer(savedCustomer);
     }
 
+
+    @Override
+    public CustomerDTO updateCustomer(CustomerDTO customerDTO) {
+        log.info("Updating new Customer");
+        Customer customer =  customerRepository.save(dtoMapper.fromCustomerDTO(customerDTO));
+        Customer savedCustomer = customerRepository.save(customer);
+        return dtoMapper.fromCustomer(savedCustomer);
+    }
+
+
+    @Override
+    public void deleteCustomer(Long customerId) {
+        log.info("Deleting a Customer");
+        customerRepository.deleteById(customerId);
+    }
+
     @Override
     public CurrentAccount saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException {
         Customer customer= customerRepository.findById(customerId).orElse(null);
