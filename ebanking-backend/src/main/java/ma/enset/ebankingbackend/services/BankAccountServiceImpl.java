@@ -23,13 +23,9 @@ import java.util.UUID;
 @Slf4j
 public class BankAccountServiceImpl implements BankAccountService {
 
-    private final CustomerRepository customerRepository;
-    private final BankAccountService bankAccountService;
-    private final BankAccountRepository bankAccountRepository;
-    private final AccountOperationRepository accountOperationRepository;
-    private CustomerRepository CustomerRepository;
-    private BankAccountRepository BankAccountRepository;
-    private AccountOperationRepository AccountOperationRepository;
+    private CustomerRepository customerRepository;
+    private BankAccountRepository bankAccountRepository;
+    private AccountOperationRepository accountOperationRepository;
 
 
     @Override
