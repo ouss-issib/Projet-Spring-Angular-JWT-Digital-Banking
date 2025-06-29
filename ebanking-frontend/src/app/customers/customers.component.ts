@@ -24,8 +24,7 @@ export class CustomersComponent implements OnInit {
 
   showDeleteToast = false;
   deleteToastMessage = '';
-  showUpdateToast = false;
-  updateToastMessage = '';
+
 
   constructor(private router: Router) {
     this.searchFormGroup = this.fb.group({
@@ -67,9 +66,10 @@ export class CustomersComponent implements OnInit {
   }
 
   onUpdate(customer: Customer) {
-    // this.updateToastMessage = 'Customer updated successfully!';
-    // this.showUpdateToast = true;
-    // setTimeout(() => (this.showUpdateToast = false), 2000);
     this.router.navigate(['/customers', customer.id, 'update']);
+  }
+
+  onView(customer: Customer) {
+    this.router.navigate(['/customers', customer.id, 'view']);
   }
 }
