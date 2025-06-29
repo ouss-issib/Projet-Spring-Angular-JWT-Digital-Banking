@@ -19,6 +19,22 @@ export class CustomerService {
     return this.http.get<Customer[]>(`${this.backendUrl}/search?keyword=${keyword}`);
   }
 
+  saveNewCustomer(customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(`${this.backendUrl}`, customer);
+  }
+
+  deleteCustomer(customerId: number): Observable<void> {
+    return this.http.delete<void>(`${this.backendUrl}/${customerId}`);
+  }
+
+  updateCustomer(customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(`${this.backendUrl}/${customer.id}`, customer);
+  }
+
+  getCustomerById(customerId:number): Observable<Customer>{
+    return this.http .get<Customer>(`${this.backendUrl}/${customerId}`);
+  }
+
 }
 
 

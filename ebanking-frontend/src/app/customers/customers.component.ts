@@ -5,6 +5,7 @@ import { CustomerService } from '../services/customer.service';
 import { Customer } from '../models/customer.model';
 import { catchError, Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-customers',
@@ -19,10 +20,14 @@ export class CustomersComponent implements OnInit {
 
   customers!: Observable<Customer[]>;
   errorMessage!: string;
-
   searchFormGroup: FormGroup;
 
-  constructor() {
+  showDeleteToast = false;
+  deleteToastMessage = '';
+  showUpdateToast = false;
+  updateToastMessage = '';
+
+  constructor(private router: Router) {
     this.searchFormGroup = this.fb.group({
       keyword:this.fb.control<string>(''),
     });
@@ -41,5 +46,30 @@ export class CustomersComponent implements OnInit {
         return of([]);
       })
     );
+  }
+
+  onDelete(customer: Customer) {
+    const response = confirm('Are you sure you want to delete this customer?');
+    if (response) {
+      this.customerService.deleteCustomer(customer.id).subscribe({
+        next: () => {
+          this.deleteToastMessage = 'Customer deleted successfully!';
+          this.showDeleteToast = true;
+          this.handleSearch();
+          setTimeout(() => (this.showDeleteToast = false), 2000);
+        },
+        error: (error) => {
+          this.errorMessage = 'Error deleting customer: ' + error.message;
+          console.error(this.errorMessage);
+        }
+      });
+    }
+  }
+
+  onUpdate(customer: Customer) {
+    // this.updateToastMessage = 'Customer updated successfully!';
+    // this.showUpdateToast = true;
+    // setTimeout(() => (this.showUpdateToast = false), 2000);
+    this.router.navigate(['/customers', customer.id, 'update']);
   }
 }
