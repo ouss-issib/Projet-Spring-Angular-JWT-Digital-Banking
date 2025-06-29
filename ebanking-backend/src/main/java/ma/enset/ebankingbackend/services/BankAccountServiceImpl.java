@@ -17,7 +17,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -187,6 +186,19 @@ public class BankAccountServiceImpl implements BankAccountService {
         accountHistoryDTO.setTotalPages(accountOperations.getTotalPages());
         return accountHistoryDTO;
     }
+
+    @Override
+    public List<CustomerDTO> searchCustomers(String keyword) {
+        List<Customer> customerList = customerRepository.findByNameContains(keyword);
+        return customerList.stream().map(customer -> dtoMapper.fromCustomer(customer)).collect(Collectors.toList());
+    }
+
+    @Override
+    public CustomerDTO searchCustomerById(Long id) throws CustomerNotFoundException {
+        Customer customer = customerRepository.findById(id).orElseThrow(()-> new CustomerNotFoundException("Customer Not Found"));
+        return dtoMapper.fromCustomer(customer);    }
+
+
 
 
 }
