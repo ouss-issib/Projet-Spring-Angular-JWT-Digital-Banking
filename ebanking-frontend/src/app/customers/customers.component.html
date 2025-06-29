@@ -1,10 +1,31 @@
 <div class="container" >
   <ng-container *ngIf="customers | async as listCustomers; else failureOrLoadingTemplate">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-info text-white">
         <h2>Customers</h2>
       </div>
       <div class="card-body">
+       <div *ngIf="searchFormGroup" class="mb-4">
+        <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearch()" class="row g-3 align-items-center mb-4">
+
+          <div class="col-auto">
+            <div class="input-group">
+              <span class="input-group-text">
+                <label for="search" class="col-form-label ">
+                  keyword :
+                  </label>
+                </span>
+              <input type="text" id="search" class="form-control" formControlName="keyword" placeholder="Enter customer name" />
+            </div>
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+       </div>
+
         <table class="table table-striped table-bordered">
           <thead>
             <tr>

@@ -20,19 +20,24 @@ export class CustomersComponent implements OnInit {
   customers!: Observable<Customer[]>;
   errorMessage!: string;
 
-  customerForm: FormGroup;
+  searchFormGroup: FormGroup;
 
   constructor() {
-    this.customerForm = this.fb.group({
-      name: [''],
-      email: ['']
+    this.searchFormGroup = this.fb.group({
+      keyword:this.fb.control<string>(''),
     });
   }
 
   ngOnInit(): void {
-    this.customers = this.customerService.getCustomers().pipe(
+   this.handleSearch();
+  }
+
+
+  handleSearch() {
+    const keyword = this.searchFormGroup.value.keyword;
+    this.customers = this.customerService.getCustomersByKeyword(keyword).pipe(
       catchError(error => {
-        this.errorMessage = 'Error loading customers: ' + error.message;
+        this.errorMessage = 'Error searching customers: ' + error.message;
         return of([]);
       })
     );
