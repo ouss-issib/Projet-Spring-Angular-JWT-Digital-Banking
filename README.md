@@ -44,4 +44,32 @@ Développer une application web complète permettant :
 - API REST sécurisée via Spring Security + JWT
 - Documentation Swagger UI (Spring Boot 3)
   
+### 📸 Captures d'écran
+
+<!--#### 🏠 Page d’accueil
+| Home Page |
+|---|
+| ![](./captures/home.png) |
+-->
+---
+
+#### 👥 Gestion des Clients
+| Liste des Clients | Détails d’un Client | Formulaire d’ajout |
+|---|---|---|
+| ![](./captures/customers-list.png) | ![](./captures/customer-details.png) | ![](./captures/customer-form.png) |
+
+---
+
+#### 🏦 Gestion des Comptes
+| Liste des Comptes | Détails d’un Compte Courant | Détails d’un Compte Épargne |
+|---|---|---|
+| ![](./captures/accounts-list.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
+
+---
+
+<!--#### 💳 Opérations Bancaires
+| Historique des Opérations | Débit / Crédit | Page de Consultation |
+|---|---|---|
+| ![](./captures/operations-history.png) | ![](./captures/credit-debit.png) | ![](./captures/operation-view.png) |-->
+
 
