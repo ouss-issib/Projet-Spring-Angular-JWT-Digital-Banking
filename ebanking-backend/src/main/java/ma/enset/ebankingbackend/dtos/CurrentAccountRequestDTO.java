@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class CurrentAccountRequestDTO {
     private double initialBalance;
-    private double interestRate;
+    private double overDraft;
     private Long customerId;
-    // getters and setters
 }

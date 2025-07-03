@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.enset.ebankingbackend.dtos.*;
 import ma.enset.ebankingbackend.entities.*;
+import ma.enset.ebankingbackend.enums.AccountStatus;
 import ma.enset.ebankingbackend.enums.OperationType;
 import ma.enset.ebankingbackend.exceptions.BalanceNotSufficientException;
 import ma.enset.ebankingbackend.exceptions.BankAccountNotFoundException;
@@ -68,6 +69,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         currentAccount.setId(UUID.randomUUID().toString());
         currentAccount.setCreatedAt(new Date());
         currentAccount.setBalance(initialBalance);
+        currentAccount.setStatus(AccountStatus.CREATED);
         currentAccount.setOverDraft(overDraft);
         currentAccount.setCustomer(customer);
         return dtoMapper.fromCurrentAccount(bankAccountRepository.save(currentAccount));
@@ -85,6 +87,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         savingAccount.setCreatedAt(new Date());
         savingAccount.setBalance(initialBalance);
         savingAccount.setInterestRate(interestRate);
+        savingAccount.setStatus(AccountStatus.CREATED);
         savingAccount.setCustomer(customer);
         return dtoMapper.fromSavingAccount(bankAccountRepository.save(savingAccount));
     }
@@ -105,6 +108,52 @@ public class BankAccountServiceImpl implements BankAccountService {
         else {
             return dtoMapper.fromCurrentAccount((CurrentAccount) bankAccount);
         }
+    }
+
+    @Override
+    public BankAccountDTO updateBankAccount(BankAccountDTO bankAccountDTO) throws BankAccountNotFoundException {
+        log.info("Received bankAccountDTO: {}", bankAccountDTO);
+
+        BankAccount existingAccount = bankAccountRepository.findById(bankAccountDTO.getId())
+                .orElseThrow(() -> new BankAccountNotFoundException("BankAccount not found!"));
+
+        if (bankAccountDTO instanceof SavingBankAccountDTO savingDTO && existingAccount instanceof SavingAccount savingAccount) {
+            // Mise à jour des champs autorisés
+            savingAccount.setBalance(savingDTO.getBalance());
+            savingAccount.setInterestRate(savingDTO.getInterestRate());
+            savingAccount.setStatus(savingDTO.getStatus());
+
+            if (savingDTO.getCustomerDTO() != null) {
+                savingAccount.setCustomer(dtoMapper.fromCustomerDTO(savingDTO.getCustomerDTO()));
+            }
+
+            existingAccount = savingAccount;
+
+        } else if (bankAccountDTO instanceof CurrentBankAccountDTO currentDTO && existingAccount instanceof CurrentAccount currentAccount) {
+            // Mise à jour des champs autorisés
+            currentAccount.setBalance(currentDTO.getBalance());
+            currentAccount.setOverDraft(currentDTO.getOverDraft());
+            currentAccount.setStatus(currentDTO.getStatus());
+
+            if (currentDTO.getCustomerDTO() != null) {
+                currentAccount.setCustomer(dtoMapper.fromCustomerDTO(currentDTO.getCustomerDTO()));
+            }
+            existingAccount = currentAccount;
+
+        } else {
+            throw new IllegalArgumentException("Mismatched account types or unknown DTO type: " + bankAccountDTO.getClass().getSimpleName());
+        }
+
+        BankAccount savedAccount = bankAccountRepository.save(existingAccount);
+        return dtoMapper.fromBankAccount(savedAccount);
+    }
+
+
+
+    @Override
+    public void deleteBankAccount(String accountId) {
+        log.info("Deleting a Bank Account");
+        bankAccountRepository.deleteById(accountId);
     }
 
     @Override
@@ -158,6 +207,21 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
+    public List<BankAccountDTO> bankAccountList(Long customerId) {
+        Customer customer = customerRepository.findById(customerId).orElse(null);
+        if (customer == null) {
+            // You can throw an exception or return an empty list
+            return List.of();
+        }
+        // Fetch all accounts for this customer
+        List<BankAccount> accounts = bankAccountRepository.findByCustomerId(customerId);
+        // Map to DTOs
+        return accounts.stream()
+                .map(account -> dtoMapper.fromBankAccount(account))
+                .toList();
+    }
+
+    @Override
     public CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(customerId).orElseThrow(()->{
             return new CustomerNotFoundException("Customer not found");
@@ -197,7 +261,6 @@ public class BankAccountServiceImpl implements BankAccountService {
     public CustomerDTO searchCustomerById(Long id) throws CustomerNotFoundException {
         Customer customer = customerRepository.findById(id).orElseThrow(()-> new CustomerNotFoundException("Customer Not Found"));
         return dtoMapper.fromCustomer(customer);    }
-
 
 
 

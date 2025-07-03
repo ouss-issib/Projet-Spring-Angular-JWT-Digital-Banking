@@ -7,5 +7,4 @@ public class SavingAccountRequestDTO {
     private double initialBalance;
     private double interestRate;
     private Long customerId;
-    // getters and setters
 }
