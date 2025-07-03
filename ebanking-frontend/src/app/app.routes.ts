@@ -1,3 +1,4 @@
+import { ViewCustomerComponent } from './components/customers/view-customer/view-customer.component';
 import { Routes } from '@angular/router';
 import { CustomersComponent } from './components/customers/customers/customers.component';
 import { AccountsComponent } from './components/accounts/accounts/accounts.component';
@@ -21,7 +22,7 @@ export const routes: Routes = [
     { path: 'customers', component: CustomersComponent },
     { path: 'new-customer', component: NewCustomerComponent },
     { path: 'customers/:id/update', component: UpdateCustomerComponent },
-    { path: 'customers/:id/view', component: ViewAccountComponent },
+    { path: 'customers/:id/view', component: ViewCustomerComponent },
     { path: 'customers/:id/accounts', component: AccountsComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },

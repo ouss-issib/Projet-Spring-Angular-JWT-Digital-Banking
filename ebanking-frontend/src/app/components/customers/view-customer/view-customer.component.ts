@@ -1,7 +1,7 @@
+import { Customer } from './../../../models/customer.model';
+import { CustomerService } from './../../../services/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerService } from '../services/customer.service';
-import { Customer } from '../models/customer.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,8 +24,8 @@ export class ViewCustomerComponent implements OnInit {
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.customerService.getCustomerById(id).subscribe({
-      next: (data) => this.customer = data,
-      error: (err) => this.errorMessage = 'Customer not found.'
+      next: (data: Customer) => this.customer = data,
+      error: (err: any) => this.errorMessage = 'Customer not found.'
     });
   }
 
