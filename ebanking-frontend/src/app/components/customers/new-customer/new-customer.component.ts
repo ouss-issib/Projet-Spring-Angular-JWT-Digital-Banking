@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CustomerService } from '../services/customer.service';
+import { CustomerService } from '../../../services/customer.service';
 
 @Component({
   selector: 'app-new-customer',

@@ -1,0 +1,83 @@
+<div class="container mt-4" *ngIf="accountForm">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+      <div class="card shadow-sm border-primary">
+        <div class="card-header bg-primary text-white d-flex align-items-center">
+          <i class="bi bi-pencil-square me-2"></i>
+          <span>Edit Account</span>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label"><i class="bi bi-cash-stack"></i> Balance</label>
+              <input type="number" class="form-control" formControlName="balance" min="0" />
+              <div *ngIf="accountForm.get('balance')?.touched && accountForm.get('balance')?.invalid" class="text-danger small mt-1">
+                <div *ngIf="accountForm.get('balance')?.errors?.['required']">Balance is required.</div>
+                <div *ngIf="accountForm.get('balance')?.errors?.['min']">Balance must be at least 0.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><i class="bi bi-info-circle"></i> Status</label>
+              <select class="form-select" formControlName="status" required>
+                <option value="" disabled>Select status</option>
+                <option value="CREATED">CREATED</option>
+                <option value="ACTIVATED">ACTIVATED</option>
+                <option value="SUSPENDED">SUSPENDED</option>
+              </select>
+              <div *ngIf="accountForm.get('status')?.touched && accountForm.get('status')?.invalid" class="text-danger small mt-1">
+                <div *ngIf="accountForm.get('status')?.errors?.['required']">Status is required.</div>
+              </div>
+            </div>
+            <div class="mb-3" *ngIf="accountType === 'SavingAccount'">
+              <label class="form-label"><i class="bi bi-percent"></i> Interest Rate</label>
+              <input type="number" class="form-control" formControlName="interestRate" min="0" />
+              <div *ngIf="accountForm.get('interestRate')?.touched && accountForm.get('interestRate')?.invalid" class="text-danger small mt-1">
+                <div *ngIf="accountForm.get('interestRate')?.errors?.['required']">Interest rate is required.</div>
+                <div *ngIf="accountForm.get('interestRate')?.errors?.['min']">Interest rate must be at least 0.</div>
+              </div>
+            </div>
+            <div class="mb-3" *ngIf="accountType === 'CurrentAccount'">
+              <label class="form-label"><i class="bi bi-arrow-down-circle"></i> Overdraft</label>
+              <input type="number" class="form-control" formControlName="overDraft" min="0" />
+              <div *ngIf="accountForm.get('overDraft')?.touched && accountForm.get('overDraft')?.invalid" class="text-danger small mt-1">
+                <div *ngIf="accountForm.get('overDraft')?.errors?.['required']">Overdraft is required.</div>
+                <div *ngIf="accountForm.get('overDraft')?.errors?.['min']">Overdraft must be at least 0.</div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="!accountForm.valid">
+              <i class="bi bi-save"></i> Save
+            </button>
+          </form>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+  <div class="toast align-items-center text-bg-success border-0" role="alert"
+    [class.show]="showSuccessToast" [class.hide]="!showSuccessToast"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-check-circle-fill"></i>
+        {{ successMessage || 'Account updated successfully!' }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+        (click)="showSuccessToast = false" aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="toast align-items-center text-bg-danger border-0" role="alert"
+    [class.show]="showErrorToast" [class.hide]="!showErrorToast"
+    aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-x-circle-fill"></i>
+        {{ errorMessage || 'Update failed!' }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+        (click)="showErrorToast = false" aria-label="Close"></button>
+    </div>
+  </div>
+</div>

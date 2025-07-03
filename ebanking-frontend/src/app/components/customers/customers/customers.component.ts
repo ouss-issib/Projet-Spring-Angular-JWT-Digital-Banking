@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { CustomerService } from '../services/customer.service';
-import { Customer } from '../models/customer.model';
+import { CustomerService } from '../../../services/customer.service';
+import { Customer } from '../../../models/customer.model';
 import { catchError, Observable, of } from 'rxjs';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -71,5 +71,13 @@ export class CustomersComponent implements OnInit {
 
   onView(customer: Customer) {
     this.router.navigate(['/customers', customer.id, 'view']);
+  }
+
+  onViewAccounts(customer: Customer) {
+    this.router.navigate(['/customers', customer.id, 'accounts']);
+  }
+
+  onNewBankAccount(customer:Customer){
+    this.router.navigate(['/customers',customer.id,'new-bank-account']);
   }
 }
