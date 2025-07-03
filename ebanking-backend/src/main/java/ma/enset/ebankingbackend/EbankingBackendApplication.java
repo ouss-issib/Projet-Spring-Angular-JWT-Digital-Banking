@@ -44,7 +44,7 @@ public class EbankingBackendApplication {
             });
             bankAccountService.listCustomers().forEach(c -> {
                 try {
-                    bankAccountService.saveCurrentBankAccount(Math.random() * 90000, 9000, c.getId());
+                    bankAccountService.saveCurrentBankAccount(Math.random() * 90000, 900, c.getId());
                     bankAccountService.saveSavingBankAccount(Math.random() * 90000, 4.5, c.getId());
 
 
@@ -64,8 +64,8 @@ public class EbankingBackendApplication {
                     else{
                         accountId = ((CurrentBankAccountDTO) bankAccount).getId();
                     }
-                    bankAccountService.credit(accountId, 1000 + Math.random() * 10000, "Credit");
-                    bankAccountService.debit(accountId, 1000 + Math.random() * 10000, "Debit");
+                    bankAccountService.credit(accountId, 1000 + Math.random() * 1000, "Credit");
+                    bankAccountService.debit(accountId, 1000 + Math.random() * 1000, "Debit");
                 }
 
             }

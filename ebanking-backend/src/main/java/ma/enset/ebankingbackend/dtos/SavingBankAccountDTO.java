@@ -13,7 +13,6 @@ public class SavingBankAccountDTO extends BankAccountDTO{
     private Date createdAt;
     private double balance;
     private AccountStatus status;
-    private String currency;
     private CustomerDTO customerDTO;
     private double interestRate;
 }

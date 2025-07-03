@@ -1,13 +1,7 @@
 package ma.enset.ebankingbackend.mappers;
 
-import ma.enset.ebankingbackend.dtos.AccountOperationDTO;
-import ma.enset.ebankingbackend.dtos.CurrentBankAccountDTO;
-import ma.enset.ebankingbackend.dtos.CustomerDTO;
-import ma.enset.ebankingbackend.dtos.SavingBankAccountDTO;
-import ma.enset.ebankingbackend.entities.AccountOperation;
-import ma.enset.ebankingbackend.entities.CurrentAccount;
-import ma.enset.ebankingbackend.entities.Customer;
-import ma.enset.ebankingbackend.entities.SavingAccount;
+import ma.enset.ebankingbackend.dtos.*;
+import ma.enset.ebankingbackend.entities.*;
 import ma.enset.ebankingbackend.enums.OperationType;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -15,12 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class BankAccountMapperImpl {
     public CustomerDTO fromCustomer(Customer customer) {
+        if (customer == null) return null;  // <-- ajouter ce test null
         CustomerDTO customerDTO = new CustomerDTO();
         BeanUtils.copyProperties(customer, customerDTO);
         return customerDTO;
     }
 
     public Customer fromCustomerDTO(CustomerDTO customerDTO) {
+        if (customerDTO == null) return null;  // <-- IMPORTANT
         Customer customer = new Customer();
         BeanUtils.copyProperties(customerDTO, customer);
         return customer;
@@ -59,6 +55,16 @@ public class BankAccountMapperImpl {
         AccountOperationDTO accountOperationDTO = new AccountOperationDTO();
         BeanUtils.copyProperties(accountOperation, accountOperationDTO);
         return accountOperationDTO;
+    }
+
+    public BankAccountDTO fromBankAccount(BankAccount account) {
+        if (account == null) return null;
+        if (account instanceof SavingAccount) {
+            return fromSavingAccount((SavingAccount) account);
+        } else if (account instanceof CurrentAccount) {
+            return fromCurrentAccount((CurrentAccount) account);
+        }
+        return null;
     }
 
 
