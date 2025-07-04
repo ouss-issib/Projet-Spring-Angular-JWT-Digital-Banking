@@ -1,10 +1,10 @@
 # 💻 Digital Banking App – Angular Frontend
 
-Ce dépôt contient une **application frontend Angular** conçue pour interagir avec un **backend Spring Boot**. Ce projet est réalisé dans le cadre du cours **"Architecture JEE et Middlewares"** dirigé par **Mr YOUSSFI Mohamed**, et a pour objectif la mise en œuvre d’une application de **gestion des comptes bancaires** (clients, comptes courants/épargnes, opérations DEBIT/CREDIT).
+Ce dépôt contient une **Application frontend Angular** conçue pour interagir avec un **Backend Spring Boot**. Ce projet est réalisé dans le cadre du cours **"Architecture JEE et Middlewares"** dirigé par **Mr YOUSSFI Mohamed**, et a pour objectif la mise en œuvre d’une application de **gestion des comptes bancaires** (clients, comptes courants/épargnes, opérations DEBIT/CREDIT).
 
 ## 🎯 Objectif
 
-Développer une application web complète permettant :
+Développer une application web complète permettant :  
 
 - La gestion des **clients** (ajout, édition, suppression, recherche).
 - La gestion des **comptes bancaires** (comptes courants et épargnes).
