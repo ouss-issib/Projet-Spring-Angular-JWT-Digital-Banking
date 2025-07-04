@@ -46,6 +46,14 @@ Développer une application web complète permettant :
   
 ### 📸 Captures d'écran
 
+
+#### 🔐 Authentification
+| Formulaire de Connexion | Formulaire d’Inscription |
+|---|---|
+| ![](./captures/login-form.png) | ![](./captures/register-form.png) |
+
+---
+
 <!--#### 🏠 Page d’accueil
 | Home Page |
 |---|
