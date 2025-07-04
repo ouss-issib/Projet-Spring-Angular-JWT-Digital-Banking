@@ -8,22 +8,25 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" routerLink="/" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Customers
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/customers">Search Customers</a></li>
-            <li><a class="dropdown-item" routerLink="/new-customer">Add New Customer</a></li>
+            <li><a class="dropdown-item" routerLink="/customers" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">Search Customers</a></li>
+            <li><a class="dropdown-item" routerLink="/new-customer" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">Add New Customer</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/accounts">Accounts</a>
+          <a class="nav-link active" routerLink="/accounts" routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}">Accounts</a>
         </li>
       </ul>
-      <!-- Right section with color and rounded style -->
       <div class="d-flex align-items-center bg-primary rounded-3 px-3 py-2 ms-auto">
         <ul class="navbar-nav flex-row">
           <li class="nav-item" *ngIf="authService.isLoggedIn()">
