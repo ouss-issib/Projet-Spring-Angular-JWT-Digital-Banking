@@ -52,7 +52,7 @@ Développer une application web complète permettant :
 |---|---|
 | ![](./captures/login-form.png) | ![](./captures/register-form.png) |
 
----
+
 
 <!--#### 🏠 Page d’accueil
 | Home Page |
