@@ -80,4 +80,10 @@ Développer une application web complète permettant :
 |---|---|---|
 | ![](./captures/operations-history.png) | ![](./captures/credit-debit.png) | ![](./captures/operation-view.png) |-->
 
+<!--
+#### 🧑‍💼 Encadrant
+Pr. YOUSSFI Mohamed
 
+#### 👨‍🏫 Auteur
+BISSI Oussama
+-->
