@@ -14,6 +14,13 @@
         <button class="btn btn-success w-100" type="submit">Register</button>
         <div *ngIf="error" class="text-danger mt-2">{{ error }}</div>
       </form>
+      <hr>
+      <div class="text-center mt-3">
+        <small>
+          Already have an account?
+          <a routerLink="/login" class="text-info">Login here</a>
+        </small>
+      </div>
     </div>
   </div>
 </div>
