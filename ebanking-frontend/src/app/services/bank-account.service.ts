@@ -50,4 +50,30 @@ export class BankAccountService {
       `${this.backendUrl}/${accountId}/pageOperations?page=${page}&size=${size}`
     );
   }
+
+  debit(accountId: string, amount: number, description: string): Observable<void> {
+    return this.http.post<void>(`${this.backendUrl}/debit`, {
+      accountId, amount, description
+    });
+  }
+
+  transfer(sourceId: string, destId: string, amount: number): Observable<void> {
+    return this.http.post<void>(`${this.backendUrl}/transfer`, {
+      sourceAccount: sourceId,
+      destinationAccount: destId,
+      amount
+    });
+  }
+
+
+  getAllAccountsExcept(currentId: string): Observable<BankAccountDTO[]> {
+    return this.http.get<BankAccountDTO[]>(`${this.backendUrl}/others/${currentId}`);
+  }
+
+  credit(accountId: string, amount: number, description: string): Observable<void> {
+    return this.http.post<void>(`${this.backendUrl}/credit`, {
+      accountId, amount, description
+    });
+  }
+
 }
