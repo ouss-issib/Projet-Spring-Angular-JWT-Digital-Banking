@@ -75,11 +75,16 @@ Développer une application web complète permettant :
 
 ---
 
-<!--#### 💳 Opérations Bancaires
-| Historique des Opérations | Débit / Crédit | Page de Consultation |
+#### 💳 Opérations Bancaires
+| Historique des Opérations | Débit avant | Débit après | 
 |---|---|---|
-| ![](./captures/operations-history.png) | ![](./captures/credit-debit.png) | ![](./captures/operation-view.png) |-->
+| ![](./captures/account-operations.png) | ![](./captures/debit-before.png) | ![](./captures/debit-after.png) |
 
+| Transfer Liste | Transfer | 
+|---|---|
+| ![](./captures/transfer-list.png) | ![](./captures/credit-debit.png) |
+
+---
 <!--
 #### 🧑‍💼 Encadrant
 Pr. YOUSSFI Mohamed
