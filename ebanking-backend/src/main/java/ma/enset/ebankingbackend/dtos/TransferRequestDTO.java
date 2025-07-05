@@ -7,5 +7,5 @@ public class TransferRequestDTO {
     private String sourceAccount;
     private String destinationAccount;
     private double amount;
-    private String description;
+//    private String description;
 }

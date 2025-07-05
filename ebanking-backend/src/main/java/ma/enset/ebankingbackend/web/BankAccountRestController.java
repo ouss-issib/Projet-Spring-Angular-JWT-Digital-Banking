@@ -8,6 +8,7 @@ import ma.enset.ebankingbackend.services.BankAccountService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -64,6 +65,27 @@ public class BankAccountRestController {
     @GetMapping("accounts/by-customer/{customerId}")
     public List<BankAccountDTO> getAccountsByCustomer(@PathVariable Long customerId) {
         return bankAccountService.bankAccountList(customerId);
+    }
+    @PostMapping("/accounts/credit")
+    public void credit(@RequestBody DebitDTO request) throws Exception {
+        bankAccountService.credit(request.getAccountId(), request.getAmount(), request.getDescription());
+    }
+
+    @PostMapping("/accounts/debit")
+    public void debit(@RequestBody DebitDTO request) throws Exception {
+        bankAccountService.debit(request.getAccountId(), request.getAmount(), request.getDescription());
+    }
+
+    @PostMapping("/accounts/transfer")
+    public void transfer(@RequestBody TransferRequestDTO request) throws Exception {
+        bankAccountService.transfer(request.getSourceAccount(), request.getDestinationAccount(), request.getAmount());
+    }
+
+    @GetMapping("/accounts/others/{id}")
+    public List<BankAccountDTO> getOtherAccounts(@PathVariable String id) {
+        return bankAccountService.bankAccountList().stream()
+                .filter(account -> !account.getId().equals(id))
+                .collect(Collectors.toList());
     }
 
 }

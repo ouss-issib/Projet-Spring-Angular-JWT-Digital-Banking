@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -196,7 +197,8 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public List<BankAccountDTO> bankAccountList(){
         List<BankAccount> bankAccountDTOList =  bankAccountRepository.findAll();
-        return bankAccountDTOList.stream().map(acc-> {
+        return bankAccountDTOList.stream()
+                .map(acc-> {
             if(acc instanceof SavingAccount) {
                 return dtoMapper.fromSavingAccount((SavingAccount) acc);
             }
@@ -233,6 +235,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public List<AccountOperationDTO> accountHistorique(String accountId){
         return accountOperationRepository.findByBankAccountId(accountId).stream()
+                .sorted(Comparator.comparing(AccountOperation::getDate).reversed())
                 .map(op->dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
     }
 
@@ -241,7 +244,9 @@ public class BankAccountServiceImpl implements BankAccountService {
         BankAccount bankAccount = bankAccountRepository.findById(accountId).orElseThrow(()->new BankAccountNotFoundException("BankAccount not found"));
         Page<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(accountId, PageRequest.of(page, size));
         AccountHistoryDTO accountHistoryDTO = new AccountHistoryDTO();
-        List<AccountOperationDTO> accountOperationsDTOS = accountOperations.getContent().stream().map(op -> dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
+        List<AccountOperationDTO> accountOperationsDTOS = accountOperations.getContent().stream()
+                .sorted(Comparator.comparing(AccountOperation::getDate).reversed())
+                .map(op -> dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperations(accountOperationsDTOS);
         accountHistoryDTO.setAccountId(bankAccount.getId());
         accountHistoryDTO.setBalance(bankAccount.getBalance());
