@@ -78,11 +78,11 @@ Développer une application web complète permettant :
 #### 💳 Opérations Bancaires
 | Historique des Opérations | Débit avant | Débit après | 
 |---|---|---|
-| ![](./captures/account-operations.png) | ![](./captures/debit-before.png) | ![](./captures/debit-after.png) |
+| ![](./captures/account-operations.png) | ![](./captures/before-debit.png) | ![](./captures/after-debit.png) |
 
 | Transfer Liste | Transfer | 
 |---|---|
-| ![](./captures/transfer-list.png) | ![](./captures/credit-debit.png) |
+| ![](./captures/transfer-list.png) | ![](./captures/debit-successful.png) |
 
 ---
 <!--
