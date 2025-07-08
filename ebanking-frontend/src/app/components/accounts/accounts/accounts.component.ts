@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, Observable, of } from 'rxjs';
 import { BankAccount } from '../../../models/bank-account.model';
 import { BankAccountService } from '../../../services/bank-account.service';
-import { catchError, Observable, of } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-accounts',
@@ -48,17 +48,17 @@ export class AccountsComponent implements OnInit {
   }
 
   onNewAccount() {
-    this.router.navigateByUrl("new-bank-account");
+    this.router.navigateByUrl("/admin/new-bank-account");
   }
 
   onView(account: BankAccount) {
     // Navigate to the account details page
-    this.router.navigate(['/accounts', account.id, 'view']);
+    this.router.navigate(['/admin/accounts', account.id, 'view']);
   }
 
   onEdit(account: BankAccount) {
     // Navigate to the account edit page
-    this.router.navigate(['/accounts', account.id, 'edit']);
+    this.router.navigate(['/admin/accounts', account.id, 'edit']);
   }
 
   onDelete(account: BankAccount) {
@@ -81,6 +81,6 @@ export class AccountsComponent implements OnInit {
 
   onViewOperations(account: BankAccount) {
     // Navigate to the operations/transactions page for this account
-    this.router.navigate(['/accounts', account.id, 'operations']);
+    this.router.navigate(['/admin//accounts', account.id, 'operations']);
   }
 }
