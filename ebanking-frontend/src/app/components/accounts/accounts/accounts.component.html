@@ -6,75 +6,76 @@
 
       </div>
       <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-          <thead class="table-dark text-center">
-            <tr>
-              <th>Account ID</th>
-              <th>Type</th>
-              <th>Created At</th>
-              <th>Balance</th>
-              <th>Status</th>
-              <th>Customer</th>
-              <th>Interest Rate</th>
-              <th>Overdraft</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let account of listAccounts">
-              <td class="fw-semibold">{{ account.id }}</td>
-              <td>
-                <span class="badge" [ngClass]="{
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark text-center">
+              <tr>
+                <th>Account ID</th>
+                <th>Type</th>
+                <th>Created At</th>
+                <th>Balance</th>
+                <th>Status</th>
+                <th>Customer</th>
+                <th>Interest Rate</th>
+                <th>Overdraft</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let account of listAccounts">
+                <td class="fw-semibold">{{ account.id }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
                           'bg-success': account.type === 'SavingAccount',
                           'bg-warning text-dark': account.type === 'CurrentAccount'
                         }">
-                  {{ account.type }}
-                </span>
-              </td>
-              <td>{{ account.createdAt | date:'short' }}</td>
-              <td>{{ account.balance | currency }}</td>
-              <td>
-                <span class="badge"
-                  [ngClass]="{
+                    {{ account.type }}
+                  </span>
+                </td>
+                <td>{{ account.createdAt | date:'short' }}</td>
+                <td>{{ account.balance | currency }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
                     'bg-secondary': account.status === 'CREATED',
                     'bg-success': account.status === 'ACTIVATED',
                     'bg-danger': account.status === 'SUSPENDED'
                   }">
-                  {{ account.status }}
-                </span>
-              </td>
-              <td>{{ account.customerDTO && account.customerDTO.name }}</td>
-              <td>
-                <span *ngIf="account.type === 'SavingAccount'">
-                  {{ account.interestRate != undefined ? account.interestRate : '-' }}
-                </span>
-              </td>
-              <td>
-                <span *ngIf="account.type === 'CurrentAccount'">
-                  {{ account.overDraft != undefined ? account.overDraft : '-' }}
-                </span>
-              </td>
-              <td class="text-center">
-                <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary me-2" (click)="onView(account)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Account" >
-                    <i class="bi bi-eye"></i>
-                  </button>
-                  <button class="btn btn-warning me-2" (click)="onEdit(account)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Edit Account">
-                    <i class="bi bi-pencil-square"></i>
-                  </button>
-                  <button class="btn btn-danger me-2" (click)="onDelete(account)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Delete Account">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                  <button class="btn btn-info" (click)="onViewOperations(account)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="View Operations">
-                    <i class="bi bi-list-ul"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                    {{ account.status }}
+                  </span>
+                </td>
+                <td>{{ account.customerDTO && account.customerDTO.name }}</td>
+                <td>
+                  <span *ngIf="account.type === 'SavingAccount'">
+                    {{ account.interestRate != undefined ? account.interestRate : '-' }}
+                  </span>
+                </td>
+                <td>
+                  <span *ngIf="account.type === 'CurrentAccount'">
+                    {{ account.overDraft != undefined ? account.overDraft : '-' }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary me-2" (click)="onView(account)" title="View Account">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-warning me-2"
+                      (click)="onEdit(account)" title="Edit Account">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-danger me-2"
+                      (click)="onDelete(account)" title="Delete Account">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                    <button class="btn btn-info" (click)="onViewOperations(account)" title="View Operations">
+                      <i class="bi bi-list-ul"> Operations</i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </ng-container>

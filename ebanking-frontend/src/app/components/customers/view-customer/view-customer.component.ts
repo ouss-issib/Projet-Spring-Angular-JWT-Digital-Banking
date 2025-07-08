@@ -1,8 +1,8 @@
-import { Customer } from './../../../models/customer.model';
-import { CustomerService } from './../../../services/customer.service';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Customer } from './../../../models/customer.model';
+import { CustomerService } from './../../../services/customer.service';
 
 @Component({
   selector: 'app-view-customer',
@@ -30,6 +30,6 @@ export class ViewCustomerComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/customers']);
+    this.router.navigate(['/admin/customers']);
   }
 }

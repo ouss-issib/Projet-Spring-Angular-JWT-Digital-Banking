@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // private readonly USER_KEY = 'ebanking_user';
   backendUrl = environment.baseUrl + '/auth';
 
   isAuthenticated : boolean = false;
@@ -35,42 +34,23 @@ export class AuthService {
     let decodedToken: any = jwtDecode(this.accessToken);
     this.roles = decodedToken['scope'];
     this.username = decodedToken['sub'];
-    // localStorage.setItem('access-token', this.accessToken);
+    localStorage.setItem('access-token', this.accessToken);
   }
-
-  // login(username: string, password: string): boolean {
-  //   // For demo: accept any username/password, in real app call backend!
-  //   if (username && password) {
-  //     localStorage.setItem(this.USER_KEY, username);
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
-  // register(username: string, password: string): boolean {
-  //   // For demo: always succeed, in real app call backend!
-  //   if (username && password) {
-  //     localStorage.setItem(this.USER_KEY, username);
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   logout() {
     this.isAuthenticated = false;
     this.roles = undefined;
     this.username = undefined;
     this.accessToken = undefined;
+    localStorage.removeItem('access-token');
     this.router.navigate(['/login']);
-    // localStorage.removeItem('access-token');
-    // localStorage.removeItem(this.USER_KEY);
   }
 
-  getUsername() {
-    // return localStorage.getItem(this.USER_KEY);
+  loadJwtFromLocalStorage() {
+    const token = localStorage.getItem('access-token');
+    if (token) {
+     this.loadProfile({ "access-token" : token });
+     this.router.navigate(['/admin/customers']);
+    }
   }
-
-  // isLoggedIn(): boolean {
-  //   return !!this.getUsername();
-  // }
 }

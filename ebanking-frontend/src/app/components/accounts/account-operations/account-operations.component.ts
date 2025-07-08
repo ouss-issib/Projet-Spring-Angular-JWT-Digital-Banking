@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AccountHistoryDTO } from '../../../dtos/AccountHistoryDTO';
 import { BankAccount } from '../../../models/bank-account.model';
+import { AuthService } from '../../../services/auth.service';
 import { BankAccountService } from '../../../services/bank-account.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { BankAccountService } from '../../../services/bank-account.service';
   styleUrls: ['./account-operations.component.css']
 })
 export class AccountOperationsComponent implements OnInit {
+  authService = inject(AuthService);
   accountHistory?: AccountHistoryDTO;
   otherAccounts: BankAccount[] = [];
   errorMessage = '';

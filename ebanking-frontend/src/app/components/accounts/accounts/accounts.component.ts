@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { BankAccount } from '../../../models/bank-account.model';
 import { BankAccountService } from '../../../services/bank-account.service';
+import { AuthService } from './../../../services/auth.service';
 
 @Component({
   selector: 'app-accounts',
@@ -16,6 +17,7 @@ export class AccountsComponent implements OnInit {
   accounts!: Observable<BankAccount[]>;
   errorMessage!: string;
   bankAccountService = inject(BankAccountService);
+  authService = inject(AuthService);
   customerId?: number;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
@@ -81,6 +83,6 @@ export class AccountsComponent implements OnInit {
 
   onViewOperations(account: BankAccount) {
     // Navigate to the operations/transactions page for this account
-    this.router.navigate(['/admin//accounts', account.id, 'operations']);
+    this.router.navigate(['/admin/accounts', account.id, 'operations']);
   }
 }

@@ -1,11 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { CustomerService } from '../../../services/customer.service';
-import { Customer } from '../../../models/customer.model';
-import { catchError, Observable, of } from 'rxjs';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, Observable, of } from 'rxjs';
+import { Customer } from '../../../models/customer.model';
+import { AuthService } from '../../../services/auth.service';
+import { CustomerService } from '../../../services/customer.service';
 
 @Component({
   selector: 'app-customers',
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class CustomersComponent implements OnInit {
   private customerService = inject(CustomerService);
   private fb = inject(FormBuilder);
-
+  public authService = inject(AuthService);
   customers!: Observable<Customer[]>;
   errorMessage!: string;
   searchFormGroup: FormGroup;
@@ -66,18 +66,18 @@ export class CustomersComponent implements OnInit {
   }
 
   onUpdate(customer: Customer) {
-    this.router.navigate(['/customers', customer.id, 'update']);
+    this.router.navigate(['/admin/customers', customer.id, 'update']);
   }
 
   onView(customer: Customer) {
-    this.router.navigate(['/customers', customer.id, 'view']);
+    this.router.navigate(['/admin/customers', customer.id, 'view']);
   }
 
   onViewAccounts(customer: Customer) {
-    this.router.navigate(['/customers', customer.id, 'accounts']);
+    this.router.navigate(['/admin/customers', customer.id, 'accounts']);
   }
 
   onNewBankAccount(customer:Customer){
-    this.router.navigate(['/customers',customer.id,'new-bank-account']);
+    this.router.navigate(['/admin/customers',customer.id,'new-bank-account']);
   }
 }

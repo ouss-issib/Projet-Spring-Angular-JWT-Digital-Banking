@@ -19,8 +19,8 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" routerLink="/admin/customers" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">Search Customers</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/new-customer" routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}">Add New Customer</a></li>
+            <li *ngIf="authService.roles.includes('ADMIN')"><a class="dropdown-item" routerLink="/admin/new-customer"
+                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add New Customer</a></li>
           </ul>
         </li>
         <li class="nav-item">
