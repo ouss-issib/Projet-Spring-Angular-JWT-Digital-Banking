@@ -1,16 +1,15 @@
-import { FormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BankAccountService } from '../../../services/bank-account.service';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AccountHistoryDTO } from '../../../dtos/AccountHistoryDTO';
 import { BankAccount } from '../../../models/bank-account.model';
-import { OrderByDateDescPipe } from '../../../pipes/order-by-date-desc.pipe';
+import { BankAccountService } from '../../../services/bank-account.service';
 
 @Component({
   selector: 'app-account-operations',
   standalone: true,
-  imports: [CommonModule,FormsModule,OrderByDateDescPipe],
+  imports: [CommonModule,FormsModule],
   templateUrl: './account-operations.component.html',
   styleUrls: ['./account-operations.component.css']
 })
