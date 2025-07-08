@@ -28,22 +28,22 @@
             [routerLinkActiveOptions]="{exact: true}">Accounts</a>
         </li>
       </ul>
-      <div class="d-flex align-items-center bg-primary rounded-3 px-3 py-2 ms-auto">
+      <div class="d-flex align-items-center bg-primary rounded-3 px-3 py-2 ms-auto" *ngIf="authService.isAuthenticated">
         <ul class="navbar-nav flex-row">
-          <li class="nav-item" *ngIf="authService.isAuthenticated">
+          <li class="nav-item">
             <span class="navbar-text text-white me-3">
               <i class="bi bi-person-circle"></i> {{ authService.username }}
             </span>
           </li>
-          <li class="nav-item" *ngIf="authService.isAuthenticated">
+          <li class="nav-item">
             <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
           </li>
-          <li class="nav-item" *ngIf="!authService.isAuthenticated">
+          <!-- <li class="nav-item" *ngIf="!authService.isAuthenticated">
             <a class="btn btn-outline-light btn-sm" routerLink="/login">Login</a>
-          </li>
-          <li class="nav-item" *ngIf="!authService.isAuthenticated">
+          </li> -->
+          <!-- <li class="nav-item" *ngIf="!authService.isAuthenticated">
             <a class="btn btn-light btn-sm ms-2" routerLink="/register">Register</a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>

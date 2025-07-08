@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 // src/app/services/auth.service.ts
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../environments/environment';
 
@@ -13,9 +14,10 @@ export class AuthService {
   isAuthenticated : boolean = false;
   roles :any ;
   username : any;
-  accessToken !:string;
+  accessToken !:any;
 
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   login(username: string, password: string): Observable<any> {
     let params = new HttpParams().set('username', username)
@@ -55,6 +57,12 @@ export class AuthService {
   // }
 
   logout() {
+    this.isAuthenticated = false;
+    this.roles = undefined;
+    this.username = undefined;
+    this.accessToken = undefined;
+    this.router.navigate(['/login']);
+    // localStorage.removeItem('access-token');
     // localStorage.removeItem(this.USER_KEY);
   }
 

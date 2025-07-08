@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
+import { authorizationGuard } from './guards/authorization.guard';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -27,12 +28,12 @@ export const routes: Routes = [
         { path: 'home', component: HomeComponent },
         { path: 'accounts', component: AccountsComponent },
         { path: 'accounts/:id/view', component: ViewAccountComponent },
-        { path: 'accounts/:id/edit', component: EditAccountComponent },
+        { path: 'accounts/:id/edit', component: EditAccountComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
         { path: 'accounts/:id/operations', component: AccountOperationsComponent },
-        { path: 'customers/:id/new-bank-account', component: NewBankAccountComponent },
+        { path: 'customers/:id/new-bank-account', component: NewBankAccountComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
         { path: 'customers', component: CustomersComponent },
-        { path: 'new-customer', component: NewCustomerComponent },
-        { path: 'customers/:id/update', component: UpdateCustomerComponent },
+        { path: 'new-customer', component: NewCustomerComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
+        { path: 'customers/:id/update', component: UpdateCustomerComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
         { path: 'customers/:id/view', component: ViewCustomerComponent },
         { path: 'customers/:id/accounts', component: AccountsComponent }
       ]
