@@ -12,6 +12,7 @@ import { ViewAccountComponent } from './components/accounts/view-account/view-ac
 import { AdminTemplateComponent } from './components/admin-template/admin-template.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { authorizationGuard } from './guards/authorization.guard';
@@ -25,7 +26,7 @@ export const routes: Routes = [
       component: AdminTemplateComponent,
       canActivate:[AuthenticationGuard] ,
       children: [
-        { path: 'home', component: HomeComponent },
+        { path: '', component: HomeComponent },
         { path: 'accounts', component: AccountsComponent },
         { path: 'accounts/:id/view', component: ViewAccountComponent },
         { path: 'accounts/:id/edit', component: EditAccountComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
@@ -35,7 +36,8 @@ export const routes: Routes = [
         { path: 'new-customer', component: NewCustomerComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
         { path: 'customers/:id/update', component: UpdateCustomerComponent ,canActivate:[authorizationGuard],data: { roles: ['ADMIN'] }},
         { path: 'customers/:id/view', component: ViewCustomerComponent },
-        { path: 'customers/:id/accounts', component: AccountsComponent }
+        { path: 'customers/:id/accounts', component: AccountsComponent },
+        { path: 'not-authorized', component: NotAuthorizedComponent },
       ]
     },
 ];
