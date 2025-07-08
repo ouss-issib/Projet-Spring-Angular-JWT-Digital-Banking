@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
   constructor(public auth:AuthService,private router:Router){  }
 
   ngOnInit() {
-    if (!this.auth.isLoggedIn()) {
+    if (!this.auth.isAuthenticated) {
       this.router.navigate(['/login']);
     }
   }

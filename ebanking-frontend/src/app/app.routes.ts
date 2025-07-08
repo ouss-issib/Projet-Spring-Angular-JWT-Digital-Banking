@@ -9,29 +9,28 @@ import { AccountOperationsComponent } from './components/accounts/account-operat
 import { EditAccountComponent } from './components/accounts/edit-account/edit-account.component';
 import { NewBankAccountComponent } from './components/accounts/new-bank-account/new-bank-account.component';
 import { ViewAccountComponent } from './components/accounts/view-account/view-account.component';
+import { AdminTemplateComponent } from './components/admin-template/admin-template.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    // {path: '/', component: LoginComponent,exact},
-    { path: 'accounts', component: AccountsComponent },
-    { path: 'accounts/:id/view', component: ViewAccountComponent },
-    { path: 'accounts/:id/edit', component: EditAccountComponent },
-    { path: 'accounts/:id/operations', component: AccountOperationsComponent },
-    { path: 'customers/:id/new-bank-account', component: NewBankAccountComponent },
-    { path: 'customers', component: CustomersComponent },
-    { path: 'new-customer', component: NewCustomerComponent },
-    { path: 'customers/:id/update', component: UpdateCustomerComponent },
-    { path: 'customers/:id/view', component: ViewCustomerComponent },
-    { path: 'customers/:id/accounts', component: AccountsComponent },
     { path: 'login', component: LoginComponent },
+    { path:'', redirectTo: '/login', pathMatch: 'full'},
     { path: 'register', component: RegisterComponent },
     {
-      path:"",
-      component:HomeComponent,
-      canActivate: [AuthGuard],
-  },
-  { path: '**', redirectTo: '' },
+      path: 'admin',component: AdminTemplateComponent,children: [
+        { path: 'home', component: HomeComponent },
+        { path: 'accounts', component: AccountsComponent },
+        { path: 'accounts/:id/view', component: ViewAccountComponent },
+        { path: 'accounts/:id/edit', component: EditAccountComponent },
+        { path: 'accounts/:id/operations', component: AccountOperationsComponent },
+        { path: 'customers/:id/new-bank-account', component: NewBankAccountComponent },
+        { path: 'customers', component: CustomersComponent },
+        { path: 'new-customer', component: NewCustomerComponent },
+        { path: 'customers/:id/update', component: UpdateCustomerComponent },
+        { path: 'customers/:id/view', component: ViewCustomerComponent },
+        { path: 'customers/:id/accounts', component: AccountsComponent }
+      ]
+    },
 ];

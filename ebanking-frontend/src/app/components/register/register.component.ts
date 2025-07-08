@@ -19,10 +19,10 @@ export class RegisterComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onRegister() {
-    if (this.authService.register(this.username, this.password)) {
-      this.router.navigate(['/login']);
-    } else {
-      this.error = 'Registration failed';
-    }
+    // if (this.authService.register(this.username, this.password)) {
+    //   this.router.navigate(['/login']);
+    // } else {
+    //   this.error = 'Registration failed';
+    // }
   }
 }
