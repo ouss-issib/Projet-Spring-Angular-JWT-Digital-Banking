@@ -13,13 +13,17 @@ import { AdminTemplateComponent } from './components/admin-template/admin-templa
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthenticationGuard } from './guards/authentication.guard';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path:'', redirectTo: '/login', pathMatch: 'full'},
     { path: 'register', component: RegisterComponent },
     {
-      path: 'admin',component: AdminTemplateComponent,children: [
+      path: 'admin',
+      component: AdminTemplateComponent,
+      canActivate:[AuthenticationGuard] ,
+      children: [
         { path: 'home', component: HomeComponent },
         { path: 'accounts', component: AccountsComponent },
         { path: 'accounts/:id/view', component: ViewAccountComponent },

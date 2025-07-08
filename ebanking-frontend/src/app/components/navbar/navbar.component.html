@@ -32,7 +32,7 @@
         <ul class="navbar-nav flex-row">
           <li class="nav-item" *ngIf="authService.isAuthenticated">
             <span class="navbar-text text-white me-3">
-              <i class="bi bi-person-circle"></i> {{ authService.getUsername() }}
+              <i class="bi bi-person-circle"></i> {{ authService.username }}
             </span>
           </li>
           <li class="nav-item" *ngIf="authService.isAuthenticated">
