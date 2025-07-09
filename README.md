@@ -155,11 +155,11 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 | ![](./captures/user-account-operations-list.png) |
 
 ---
-## ▶️ Étapes d’exécution
+### ▶️ Étapes d’exécution
 
 ---
 
-## 1️⃣ Cloner le projet
+#### 1️⃣ Cloner le projet
 
 ```bash
 git clone https://github.com/ouss-issib/Projet-Spring-Angular-JWT-Digital-Banking.git
@@ -169,17 +169,17 @@ cd Projet-Spring-Angular-JWT-Digital-Banking
  - backend/ – API Spring Boot
  - frontend/ – Application Angular
  - 
-## 🚀 2️⃣ Lancer le Backend (Spring Boot)
+#### 🚀 2️⃣ Lancer le Backend (Spring Boot)
 📁 Aller dans le dossier backend :
 ```bash
 cd ebanking-backend
 ```
-# ⚙️ Prérequis
+##### ⚙️ Prérequis
 - Java 17+
 - Maven
 - MySQL ou H2 Database
 - IDE recommandé : IntelliJ IDEA ou VS Code
-# 🔑 Configuration de la base de données et du JWT
+##### 🔑 Configuration de la base de données et du JWT
 Créez ou modifiez le fichier src/main/resources/application.properties pour ajouter les configurations suivantes :
 ```bash
 spring.datasource.url=jdbc:mysql://localhost:3306/ebanking_db
@@ -191,32 +191,32 @@ spring.jpa.hibernate.ddl-auto=update
 jwt.secret=your_super_secret_key
 ```
 
-# ▶️ Lancer l'application backend :
+##### ▶️ Lancer l'application backend :
 ```bash
 ./mvnw spring-boot:run
 ```
-## 🌐 3️⃣ Lancer le Frontend (Angular)
+#### 🌐 3️⃣ Lancer le Frontend (Angular)
 ```bash
 cd ../ebanking-frontend
 ```
-# ⚙️ Prérequis
+##### ⚙️ Prérequis
 - Node.js >= 16.x
 - Angular CLI installé :
 ```bash
 npm install -g @angular/cli
 ```
-# 📦 Installer les dépendances :
+##### 📦 Installer les dépendances :
 ```bash
 npm install
 ```
-# ▶️ Lancer le serveur Angular :
+##### ▶️ Lancer le serveur Angular :
 ```bash
 ng serve
 ```
 
 **🌍 L'application sera disponible sur : http://localhost:4200**
 
-### 🔑 Authentification et Rôles
+##### 🔑 Authentification et Rôles
 L'application utilise Spring Security + JWT pour sécuriser l'accès. Deux rôles sont disponibles :
 
 | **Utilisateur** | **Mot de passe** | **Rôles**         |
