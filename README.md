@@ -44,21 +44,65 @@ Développer une application web complète permettant :
 - API REST sécurisée via Spring Security + JWT
 - Documentation Swagger UI (Spring Boot 3)
   
-### 📸 Captures d'écran
 
 
+
+### 🔐 Sécurité – Spring Security + JWT
+
+L'application est désormais sécurisée avec **Spring Security** et **JWT**. Deux rôles principaux sont pris en charge :
+
+- `ADMIN` : Accès total à toutes les fonctionnalités (gestion des utilisateurs, comptes, etc.)
+- `USER` : Accès restreint (consultation des comptes et opérations personnelles uniquement)
+
+---
+
+## 📸 Captures d'écran – Sécurité et Rôles
+
+---
 #### 🔐 Authentification
 | Formulaire de Connexion | Formulaire d’Inscription |
 |---|---|
 | ![](./captures/login-form.png) | ![](./captures/register-form.png) |
 
+---
+### ✅ Connexion réussie – Token JWT stocké
 
+Connexion réussie avec stockage du token JWT dans le navigateur (LocalStorage).
 
-<!--#### 🏠 Page d’accueil
-| Home Page |
+| 🔓 Authentification Réussie |
 |---|
-| ![](./captures/home.png) |
--->
+| ![](./captures/after-token.png) |
+
+---
+
+### ❌ Accès refusé – Rôle non autorisé
+
+Tentative d'accès à une page réservée à l'`ADMIN` par un utilisateur avec le rôle `USER`.
+
+| ❌ Accès Refusé |
+|---|
+| ![](./captures/access-denied.png) |
+
+---
+
+### 🕒 Expiration du Token JWT
+
+Une fois le token expiré, l'utilisateur est automatiquement redirigé vers la page de connexion.
+
+| 🕒 Token Expiré |
+|---|
+| ![](./captures/before-token.png) |
+
+---
+
+## 🔐 Sécurisation des APIs
+
+Toutes les routes sensibles sont protégées côté backend. Exemple :
+
+- `/admin/**` : réservé à l’`ADMIN`
+- `/user/**` : accessible à l’`ADMIN` et au `USER`
+- `/auth/**` : accès public (connexion, inscription)
+
 ---
 
 #### 👥 Gestion des Clients
