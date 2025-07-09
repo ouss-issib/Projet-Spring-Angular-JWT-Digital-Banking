@@ -169,7 +169,7 @@ cd Projet-Spring-Angular-JWT-Digital-Banking
  - backend/ – API Spring Boot
  - frontend/ – Application Angular
  - 
-#### 🚀 2️⃣ Lancer le Backend (Spring Boot)
+####  2️⃣ 🚀 Lancer le Backend (Spring Boot)
 📁 Aller dans le dossier backend :
 ```bash
 cd ebanking-backend
@@ -195,7 +195,7 @@ jwt.secret=your_super_secret_key
 ```bash
 ./mvnw spring-boot:run
 ```
-#### 🌐 3️⃣ Lancer le Frontend (Angular)
+#### 3️⃣ 🌐 Lancer le Frontend (Angular)
 ```bash
 cd ../ebanking-frontend
 ```
