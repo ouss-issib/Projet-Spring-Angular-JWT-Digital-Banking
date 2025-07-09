@@ -116,7 +116,7 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 ### USER
 
 | Liste des Clients | Détails d’un Client | 
-|---|---|---|
+|---|---|
 | ![](./captures/user-list-customers.png) | ![](./captures/customer-details.png) |
 
 ---
@@ -155,10 +155,3 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 | ![](./captures/user-account-operations-list.png) |
 
 ---
-<!--
-#### 🧑‍💼 Encadrant
-Pr. YOUSSFI Mohamed
-
-#### 👨‍🏫 Auteur
-BISSI Oussama
--->
