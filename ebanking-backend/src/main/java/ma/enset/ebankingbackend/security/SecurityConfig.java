@@ -54,7 +54,7 @@ public class SecurityConfig {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return new InMemoryUserDetailsManager(
                 User.withUsername("admin").password(passwordEncoder.encode("123321")).authorities("USER","ADMIN").build(),
-                User.withUsername("user1").password(passwordEncoder.encode("123321")).authorities("USER").build()
+                User.withUsername("oussbi").password(passwordEncoder.encode("123321")).authorities("USER").build()
         );
     }
 
