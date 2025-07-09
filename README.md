@@ -105,15 +105,15 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 
 ---
 
-#### 👥 Gestion des Clients
+### 👥 Gestion des Clients
 
-### ADMIN
+#### ADMIN
 
 | Liste des Clients | Détails d’un Client | Formulaire d’ajout |
 |---|---|---|
 | ![](./captures/admin-list-customers.png) | ![](./captures/customer-details.png) | ![](./captures/customer-form.png) |
 
-### USER
+#### USER
 
 | Liste des Clients | Détails d’un Client | 
 |---|---|
@@ -130,7 +130,7 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 | ![](./captures/admin-list-accounts.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
 
 
-### USER
+#### USER
 
 | Liste des Comptes | Détails d’un Compte Courant | Détails d’un Compte Épargne |
 |---|---|---|
@@ -138,9 +138,9 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 
 ---
 
-#### 💳 Opérations Bancaires
+### 💳 Opérations Bancaires
 
-### ADMIN
+#### ADMIN
 | Historique des Opérations | Débit avant | Débit après | 
 |---|---|---|
 | ![](./captures/account-operations.png) | ![](./captures/before-debit.png) | ![](./captures/after-debit.png) |
@@ -149,7 +149,7 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 |---|---|
 | ![](./captures/transfer-list.png) | ![](./captures/debit-successful.png) |
 
-### USER
+#### USER
 | Historique des Opérations | 
 |---|
 | ![](./captures/user-account-operations-list.png) |
