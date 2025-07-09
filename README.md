@@ -127,7 +127,7 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 
 | Liste des Comptes | Détails d’un Compte Courant | Détails d’un Compte Épargne |
 |---|---|---|
-| ![](./captures/admin-list-accounts.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
+| ![](./captures/dmin-list-accounts-.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
 
 
 ### USER
