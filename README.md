@@ -69,9 +69,9 @@ L'application est désormais sécurisée avec **Spring Security** et **JWT**. De
 
 Connexion réussie avec stockage du token JWT dans le navigateur (LocalStorage).
 
-| 🔓 Authentification Réussie |
-|---|
-| ![](./captures/after-token.png) |
+| 🔓 Authentification Réussie | Home User | Home Admin
+|---|---|---|
+| ![](./captures/after-token.png) | ![](./captures/welcome-user.png) | ![](./captures/welcome-admin.png) |
 
 ---
 
@@ -106,20 +106,41 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 ---
 
 #### 👥 Gestion des Clients
+
+### ADMIN
+
 | Liste des Clients | Détails d’un Client | Formulaire d’ajout |
 |---|---|---|
-| ![](./captures/customers-list.png) | ![](./captures/customer-details.png) | ![](./captures/customer-form.png) |
+| ![](./captures/admin-list-customers.png) | ![](./captures/customer-details.png) | ![](./captures/customer-form.png) |
+
+### USER
+
+| Liste des Clients | Détails d’un Client | 
+|---|---|---|
+| ![](./captures/user-list-customers.png) | ![](./captures/customer-details.png) |
 
 ---
 
 #### 🏦 Gestion des Comptes
+
+### ADMIN
+
 | Liste des Comptes | Détails d’un Compte Courant | Détails d’un Compte Épargne |
 |---|---|---|
-| ![](./captures/accounts-list.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
+| ![](./captures/admin-list-accounts.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
+
+
+### USER
+
+| Liste des Comptes | Détails d’un Compte Courant | Détails d’un Compte Épargne |
+|---|---|---|
+| ![](./captures/current-user-actions.png) | ![](./captures/current-account.png) | ![](./captures/saving-account.png) |
 
 ---
 
 #### 💳 Opérations Bancaires
+
+### ADMIN
 | Historique des Opérations | Débit avant | Débit après | 
 |---|---|---|
 | ![](./captures/account-operations.png) | ![](./captures/before-debit.png) | ![](./captures/after-debit.png) |
@@ -127,6 +148,11 @@ Toutes les routes sensibles sont protégées côté backend. Exemple :
 | Transfer Liste | Transfer | 
 |---|---|
 | ![](./captures/transfer-list.png) | ![](./captures/debit-successful.png) |
+
+### USER
+| Historique des Opérations | 
+|---|
+| ![](./captures/user-account-operations-list.png) |
 
 ---
 <!--
