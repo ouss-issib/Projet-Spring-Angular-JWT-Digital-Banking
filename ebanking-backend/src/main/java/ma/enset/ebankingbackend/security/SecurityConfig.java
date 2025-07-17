@@ -83,6 +83,7 @@ public class SecurityConfig {
 //                        .anyRequest().authenticated()
 //                )
                 .authorizeHttpRequests(ar->ar.requestMatchers("/auth/login/**").permitAll())
+                .authorizeHttpRequests(ar-> ar.requestMatchers("/api/dashboard/**").hasAuthority("ROLE_ADMIN"))
                 .authorizeHttpRequests(ar->ar.requestMatchers("/auth/register/**").permitAll())
                 .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
                 //.httpBasic(Customizer.withDefaults())
