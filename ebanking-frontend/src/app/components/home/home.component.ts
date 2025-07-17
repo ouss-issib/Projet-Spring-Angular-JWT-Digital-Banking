@@ -15,6 +15,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.username = this.authService.username || 'Guest';
-    this.role = this.authService.roles.includes('ADMIN') ? 'ADMIN' : 'USER';
+    this.role = this.authService.roles?.includes('ADMIN') ? 'ADMIN' : 'USER';
   }
 }

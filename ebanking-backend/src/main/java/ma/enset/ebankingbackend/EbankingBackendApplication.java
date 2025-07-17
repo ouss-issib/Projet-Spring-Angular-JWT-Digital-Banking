@@ -13,6 +13,7 @@ import ma.enset.ebankingbackend.exceptions.CustomerNotFoundException;
 import ma.enset.ebankingbackend.repositories.AccountOperationRepository;
 import ma.enset.ebankingbackend.repositories.BankAccountRepository;
 import ma.enset.ebankingbackend.repositories.CustomerRepository;
+import ma.enset.ebankingbackend.services.AccountService;
 import ma.enset.ebankingbackend.services.BankAccountService;
 import ma.enset.ebankingbackend.services.BankService;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +22,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +36,23 @@ public class EbankingBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(EbankingBackendApplication.class, args);
     }
+
+    @Bean
+    CommandLineRunner initUsers(AccountService accountService) {
+        return args -> {
+            accountService.addRole(new AppRole("USER"));
+            accountService.addRole(new AppRole("ADMIN"));
+
+            AppUser user1 = accountService.addUser(new AppUser(null, "admin", "123321", new ArrayList<>()));
+            AppUser user2 = accountService.addUser(new AppUser(null, "oussbi", "123321", new ArrayList<>()));
+
+            accountService.addRoleToUser("admin", "USER");
+            accountService.addRoleToUser("admin", "ADMIN");
+            accountService.addRoleToUser("oussbi", "USER");
+        };
+    }
+
+
 
     @Bean
     CommandLineRunner commandLineRunner(BankAccountService bankAccountService) {

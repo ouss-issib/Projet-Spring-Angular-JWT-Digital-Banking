@@ -13,13 +13,13 @@
             [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
             Customers
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" routerLink="/admin/customers" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">Search Customers</a></li>
-            <li *ngIf="authService.roles.includes('ADMIN')"><a class="dropdown-item" routerLink="/admin/new-customer"
+            <li *ngIf="authService.roles?.includes('ADMIN')"><a class="dropdown-item" routerLink="/admin/new-customer"
                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Add New Customer</a></li>
           </ul>
         </li>
@@ -38,13 +38,11 @@
           <li class="nav-item">
             <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
           </li>
-          <!-- <li class="nav-item" *ngIf="!authService.isAuthenticated">
-            <a class="btn btn-outline-light btn-sm" routerLink="/login">Login</a>
-          </li> -->
-          <!-- <li class="nav-item" *ngIf="!authService.isAuthenticated">
-            <a class="btn btn-light btn-sm ms-2" routerLink="/register">Register</a>
-          </li> -->
         </ul>
+      </div>
+      <div class="d-flex align-items-center ms-auto" *ngIf="!authService.isAuthenticated">
+        <a class="btn btn-outline-primary btn-sm me-2" routerLink="/login">Login</a>
+        <a class="btn btn-primary btn-sm" routerLink="/register">Register</a>
       </div>
     </div>
   </div>

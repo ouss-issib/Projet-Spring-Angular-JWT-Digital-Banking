@@ -7,13 +7,14 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,FormsModule,RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   loginForm: FormGroup;
   error: string | null = null;
+  loading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -24,13 +25,17 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.invalid) return;
+    this.loading = true;
+    this.error = null;
     const { username, password } = this.loginForm.value;
     this.authService.login(username, password).subscribe({
       next: (data) => {
         this.authService.loadProfile(data);
+        this.loading = false;
         this.router.navigateByUrl('/admin');
       },
       error: (err) => {
+        this.loading = false;
         this.error = 'Invalid credentials';
         console.error('Login error:', err);
       }

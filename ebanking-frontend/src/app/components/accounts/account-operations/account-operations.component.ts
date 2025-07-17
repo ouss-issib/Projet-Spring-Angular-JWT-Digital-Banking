@@ -59,7 +59,9 @@ export class AccountOperationsComponent implements OnInit {
       });
     }
   }
-
+  get pages(): number[] {
+    return Array(this.accountHistory?.totalPages || 0).fill(0).map((_, i) => i);
+  }
   loadOtherAccounts(currentId: string) {
     this.bankAccountService.getBankAccounts().subscribe({
       next: (accounts) => {

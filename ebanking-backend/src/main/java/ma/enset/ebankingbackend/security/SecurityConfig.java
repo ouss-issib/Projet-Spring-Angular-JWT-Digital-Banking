@@ -1,6 +1,8 @@
 package ma.enset.ebankingbackend.security;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import ma.enset.ebankingbackend.services.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +43,10 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
     @Value("${jwt.secret}")
     private String secret_key;
 
@@ -49,15 +55,23 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return new InMemoryUserDetailsManager(
-                User.withUsername("admin").password(passwordEncoder.encode("123321")).authorities("USER","ADMIN").build(),
-                User.withUsername("oussbi").password(passwordEncoder.encode("123321")).authorities("USER").build()
-        );
-    }
+//    @Bean
+//    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+//        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        return new InMemoryUserDetailsManager(
+//                User.withUsername("admin").password(passwordEncoder.encode("123321")).authorities("USER","ADMIN").build(),
+//                User.withUsername("oussbi").password(passwordEncoder.encode("123321")).authorities("USER").build()
+//        );
+//    }
 
+
+    @Bean
+    AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(bCryptPasswordEncoder());
+        provider.setUserDetailsService(customUserDetailsService);
+        return new ProviderManager(provider);
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -85,13 +99,13 @@ public class SecurityConfig {
         return NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
     }
 
-    @Bean
-    AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        return new ProviderManager(daoAuthenticationProvider);
-    }
+//    @Bean
+//    AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
+//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+//        return new ProviderManager(daoAuthenticationProvider);
+//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

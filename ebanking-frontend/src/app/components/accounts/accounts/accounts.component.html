@@ -59,11 +59,10 @@
                     <button class="btn btn-primary me-2" (click)="onView(account)" title="View Account">
                       <i class="bi bi-eye"></i>
                     </button>
-                    <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-warning me-2"
-                      (click)="onEdit(account)" title="Edit Account">
+                    <button *ngIf="" class="btn btn-warning me-2" (click)="onEdit(account)" title="Edit Account">
                       <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-danger me-2"
+                    <button *ngIf="authService.roles?.includes('ADMIN')" class="btn btn-danger me-2"
                       (click)="onDelete(account)" title="Delete Account">
                       <i class="bi bi-trash"></i>
                     </button>

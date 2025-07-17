@@ -47,15 +47,15 @@
                   <button class="btn btn-primary me-2" (click)="onView(customer)" title="View Customer">
                     <i class="bi bi-eye"></i>
                   </button>
-                  <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-warning me-2"
+                  <button *ngIf="authService.roles?.includes('ADMIN')" class="btn btn-warning me-2"
                     (click)="onUpdate(customer)" title="Edit Customer">
                     <i class="bi bi-pencil-square"></i>
                   </button>
-                  <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-danger me-2"
+                  <button *ngIf="authService.roles?.includes('ADMIN')" class="btn btn-danger me-2"
                     (click)="onDelete(customer)" title="Delete Customer">
                     <i class="bi bi-trash"></i>
                   </button>
-                  <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-info"
+                  <button *ngIf="authService.roles?.includes('ADMIN')" class="btn btn-info"
                     (click)="onNewBankAccount(customer)" title="Add Bank Account">
                     <i class="bi bi-plus-circle"></i>
                   </button>
