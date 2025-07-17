@@ -1,20 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  username: string = '';
-  role: string = '';
-  authService = inject(AuthService);
+  dashboardData: any;
+  accountsByType: { Saving: number; Current: number } = { Saving: 0, Current: 0 };
+  role: string = 'ADMIN';  // example role
+  username: string = 'Admin';
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.username = this.authService.username || 'Guest';
-    this.role = this.authService.roles?.includes('ADMIN') ? 'ADMIN' : 'USER';
+    this.http.get('/api/dashboard').subscribe(data => {
+      this.dashboardData = data;
+    });
+
+    this.http.get<{ Saving: number; Current: number }>('/api/dashboard/accounts-by-type').subscribe(data => {
+      this.accountsByType = data;
+    });
   }
 }

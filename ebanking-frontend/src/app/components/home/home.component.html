@@ -1,9 +1,66 @@
 <div class="container mt-5">
-  <div class="card">
+  <!-- Welcome Card -->
+  <div class="card mb-4">
     <div class="card-body text-center">
       <h2>Welcome, {{ username }}!</h2>
       <p *ngIf="role === 'ADMIN'">You are logged in as <strong class="text-danger">Administrator</strong>.</p>
       <p *ngIf="role === 'USER'">You are logged in as <strong>User</strong>.</p>
     </div>
   </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard Cards -->
+  <div *ngIf="role === 'ADMIN' && dashboardData" class="row mb-4">
+    <div class="col-md-4">
+      <div class="card border-primary shadow-sm">
+        <div class="card-body text-center">
+          <h5>Total Customers</h5>
+          <h3 class="text-primary">{{ dashboardData.totalCustomers }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-success shadow-sm">
+        <div class="card-body text-center">
+          <h5>Total Accounts</h5>
+          <h3 class="text-success">{{ dashboardData.totalAccounts }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card border-warning shadow-sm">
+        <div class="card-body text-center">
+          <h5>Total Balance</h5>
+          <h3 class="text-warning">{{ dashboardData.totalBalance | currency }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Existing dashboard chart -->
+  <div *ngIf="role === 'ADMIN' && dashboardData" class="card shadow-sm mb-4">
+    <div class="card-header bg-light fw-bold">Dashboard Overview</div>
+    <div class="card-body">
+      <app-dashboard-chart [customers]="dashboardData.totalCustomers" [accounts]="dashboardData.totalAccounts"
+        [balance]="dashboardData.totalBalance">
+      </app-dashboard-chart>
+    </div>
+  </div>
+
+  <!-- New Account Type Chart -->
+  <!-- <div *ngIf="role === 'ADMIN'" class="card shadow-sm">
+    <div class="card-header bg-light fw-bold">Accounts by Type</div>
+    <div class="card-body">
+      <app-account-type-chart [savingCount]="accountsByType.Saving" [currentCount]="accountsByType.Current">
+      </app-account-type-chart>
+    </div>
+  </div> -->
 </div>

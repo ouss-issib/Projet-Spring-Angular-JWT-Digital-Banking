@@ -4,22 +4,48 @@ import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 
-export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
+// export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
+//   const authService = inject(AuthService);
+//   if(!authService.isAuthenticated) {
+//     return next(req);
+//   }
+
+//   let request = req.clone({
+//     headers: req.headers.set('Authorization', `Bearer ${authService.accessToken}`)
+//   });
+//   return next(request).pipe(
+//     catchError((error) => {
+//       if (error.status === 401) {
+//         authService.logout();
+//       }
+//       return throwError(() => error);
+//     }
+//   ));
+// };
+export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  if(!authService.isAuthenticated) {
+
+  if (!authService.isAuthenticated) {
     return next(req);
   }
 
-  let request = req.clone({
-    headers: req.headers.set('Authorization', `Bearer ${authService.accessToken}`)
+  const token = authService.accessToken;
+  if (!token) {
+    return next(req);
+  }
+
+  const authReq = req.clone({
+    headers: req.headers.set('Authorization', `Bearer ${token}`)
   });
-  return next(request).pipe(
-    catchError((error) => {
-      if (error.status === 401) {
+
+  return next(authReq).pipe(
+    catchError(error => {
+      if (error.status === 401 || error.status === 403) {
         authService.logout();
       }
       return throwError(() => error);
-    }
-  ));
+    })
+  );
 };
+
