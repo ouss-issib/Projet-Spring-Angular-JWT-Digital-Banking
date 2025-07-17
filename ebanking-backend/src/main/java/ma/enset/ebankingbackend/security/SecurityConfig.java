@@ -35,6 +35,9 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+
 /**
  * @author $ {USER}
  **/
@@ -64,6 +67,15 @@ public class SecurityConfig {
 //        );
 //    }
 
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");  // ensures role prefix
+
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+        return jwtAuthenticationConverter;
+    }
 
     @Bean
     AuthenticationManager authenticationManager() {
@@ -75,19 +87,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        return httpSecurity
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
-//                .authorizeHttpRequests(ar -> ar
-//                        .requestMatchers("/auth/login/**").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-                .authorizeHttpRequests(ar->ar.requestMatchers("/auth/login/**").permitAll())
-                .authorizeHttpRequests(ar-> ar.requestMatchers("/api/dashboard/**").hasAuthority("ROLE_ADMIN"))
-                .authorizeHttpRequests(ar->ar.requestMatchers("/auth/register/**").permitAll())
-                .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
-                //.httpBasic(Customizer.withDefaults())
-                .oauth2ResourceServer(oa->oa.jwt(Customizer.withDefaults()))
+                .authorizeHttpRequests(ar -> ar
+                        .requestMatchers("/auth/login/**", "/auth/register/**").permitAll()
+                        .requestMatchers("/api/dashboard/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oa -> oa
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
+                )
                 .build();
     }
 
