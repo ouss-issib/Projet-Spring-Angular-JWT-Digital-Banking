@@ -29,4 +29,16 @@ public abstract class BankAccount {
 
     @OneToMany(mappedBy = "bankAccount",fetch = FetchType.LAZY)
     private List<AccountOperation> accountOperations;
+
+
+    // Getters and setters for discriminator type
+    public String getType() {
+        if (this instanceof SavingAccount) {
+            return "SA";
+        } else if (this instanceof CurrentAccount) {
+            return "CA";
+        } else {
+            return "Unknown";
+        }
+    }
 }
