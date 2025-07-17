@@ -43,8 +43,8 @@ public class EbankingBackendApplication {
             accountService.addRole(new AppRole("USER"));
             accountService.addRole(new AppRole("ADMIN"));
 
-            AppUser user1 = accountService.addUser(new AppUser(null, "admin", "123321", new ArrayList<>()));
-            AppUser user2 = accountService.addUser(new AppUser(null, "oussbi", "123321", new ArrayList<>()));
+            AppUser user1 = accountService.addUser(new AppUser(null, "admin", "123321","admin@gmail.ma", new ArrayList<>()));
+            AppUser user2 = accountService.addUser(new AppUser(null, "oussbi", "123321","oussbi@gmail.ma", new ArrayList<>()));
 
             accountService.addRoleToUser("admin", "USER");
             accountService.addRoleToUser("admin", "ADMIN");
