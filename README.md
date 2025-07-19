@@ -95,6 +95,18 @@ Une fois le token expiré, l'utilisateur est automatiquement redirigé vers la p
 
 ---
 
+###📊 Dashboard
+
+#### ADMIN
+| Admin DASHBOARD | 
+|---|
+| ![](./captures/dashboard.png) |
+
+#### USER
+| User with No DASHBOARD | 
+|---|
+| ![](./captures/dashboard_user.png) |
+
 ## 🔐 Sécurisation des APIs
 
 Toutes les routes sensibles sont protégées côté backend. Exemple :
