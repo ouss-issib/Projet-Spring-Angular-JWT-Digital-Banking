@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { DashboardChartComponent } from '../dashboard-chart/dashboard-chart.component';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardAccountsByTypeComponent } from '../dashboard-accounts-by-type/dashboard-accounts-by-type.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -12,26 +13,30 @@ import { DashboardAccountsByTypeComponent } from '../dashboard-accounts-by-type/
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
+
 export class HomeComponent implements OnInit {
   dashboardData: any;
   accountsByType: { Saving: number; Current: number } = { Saving: 0, Current: 0 };
-  role: string = 'ADMIN';
-  username: string = 'Admin';
+
+  // au lieu d'initialiser en dur, on laisse undefined et on récupère au chargement
+  role: string | undefined;
+  username: string | undefined;
 
   isLoading: boolean = false;
 
   constructor(
     private http: HttpClient,
-    private dashboardService: DashboardService
+    private dashboardService: DashboardService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
     this.isLoading = true;
 
+    // On charge les données du dashboard
     this.dashboardService.getDashboardData().subscribe({
       next: data => {
-        console.log('Dashboard data:', data);
-        this.dashboardData = data; // ✅ FIXED
+        this.dashboardData = data;
         this.isLoading = false;
       },
       error: error => {
@@ -40,6 +45,7 @@ export class HomeComponent implements OnInit {
       }
     });
 
+    // Charge les comptes par type
     this.dashboardService.getAccountsByType().subscribe({
       next: data => {
         this.accountsByType = data;
@@ -48,5 +54,10 @@ export class HomeComponent implements OnInit {
         console.error(err);
       }
     });
+
+    // IMPORTANT : Récupérer le rôle et username depuis AuthService
+    this.role = this.authService.roles?.includes("ADMIN") ? "ADMIN":"USER";      // par ex. "ROLE_ADMIN" ou "ROLE_USER"
+    this.username = this.authService.username;
   }
 }
+

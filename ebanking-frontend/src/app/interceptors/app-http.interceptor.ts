@@ -3,26 +3,6 @@ import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
-
-// export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
-
-//   const authService = inject(AuthService);
-//   if(!authService.isAuthenticated) {
-//     return next(req);
-//   }
-
-//   let request = req.clone({
-//     headers: req.headers.set('Authorization', `Bearer ${authService.accessToken}`)
-//   });
-//   return next(request).pipe(
-//     catchError((error) => {
-//       if (error.status === 401) {
-//         authService.logout();
-//       }
-//       return throwError(() => error);
-//     }
-//   ));
-// };
 export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
@@ -32,6 +12,7 @@ export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = authService.accessToken;
   if (!token) {
+    // No token present, just continue without logout
     return next(req);
   }
 
@@ -41,8 +22,9 @@ export const appHttpInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError(error => {
-      if (error.status === 401 || error.status === 403) {
-        authService.logout();
+      if ((error.status === 401 || error.status === 403) && token) {
+        // Only logout if token exists AND we get 401 or 403
+        // authService.logout();
       }
       return throwError(() => error);
     })
