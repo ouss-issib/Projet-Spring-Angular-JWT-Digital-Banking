@@ -58,8 +58,13 @@ export class AuthService {
   loadJwtFromLocalStorage() {
     const token = localStorage.getItem('access-token');
     if (token) {
-      this.loadProfile({ 'access-token': token });
-      this.router.navigate(['/admin/customers']);
+      try {
+        this.loadProfile({ 'access-token': token });
+      } catch (e) {
+        console.error('Invalid token in localStorage', e);
+        this.logout();
+      }
     }
   }
+
 }

@@ -3,16 +3,24 @@
   <div class="card mb-4">
     <div class="card-body text-center">
       <h2>Welcome, {{ username }}!</h2>
-      <p *ngIf="role === 'ADMIN'">You are logged in as <strong class="text-danger">Administrator</strong>.</p>
-      <p *ngIf="role === 'USER'">You are logged in as <strong>User</strong>.</p>
+      <p *ngIf="role === 'ADMIN'">
+        You are logged in as <strong class="text-danger">Administrator</strong>.
+      </p>
+      <p *ngIf="role === 'USER'">
+        You are logged in as <strong>User</strong>.
+      </p>
     </div>
   </div>
 
   <!-- Loading Indicator -->
-  <div *ngIf="isLoading" class="text-center">
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
+  <div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+    <p class="mt-3">Loading dashboard data...</p>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="!isLoading && !dashboardData" class="alert alert-warning text-center">
+    No dashboard data available.
   </div>
 
   <!-- Admin Dashboard Cards -->
@@ -21,7 +29,7 @@
       <div class="card border-primary shadow-sm">
         <div class="card-body text-center">
           <h5>Total Customers</h5>
-          <h3 class="text-primary">{{ dashboardData.totalCustomers }}</h3>
+          <h3 class="text-primary">{{ dashboardData?.totalCustomers }}</h3>
         </div>
       </div>
     </div>
@@ -30,7 +38,7 @@
       <div class="card border-success shadow-sm">
         <div class="card-body text-center">
           <h5>Total Accounts</h5>
-          <h3 class="text-success">{{ dashboardData.totalAccounts }}</h3>
+          <h3 class="text-success">{{ dashboardData?.totalAccounts }}</h3>
         </div>
       </div>
     </div>
@@ -39,28 +47,34 @@
       <div class="card border-warning shadow-sm">
         <div class="card-body text-center">
           <h5>Total Balance</h5>
-          <h3 class="text-warning">{{ dashboardData.totalBalance | currency }}</h3>
+          <h3 class="text-warning">{{ dashboardData?.totalBalance | currency }}</h3>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Existing dashboard chart -->
-  <div *ngIf="role === 'ADMIN' && dashboardData" class="card shadow-sm mb-4">
-    <div class="card-header bg-light fw-bold">Dashboard Overview</div>
-    <div class="card-body">
-      <app-dashboard-chart [customers]="dashboardData.totalCustomers" [accounts]="dashboardData.totalAccounts"
-        [balance]="dashboardData.totalBalance">
-      </app-dashboard-chart>
-    </div>
+  <!-- Dashboard Overview Chart -->
+ <div *ngIf="!isLoading && role === 'ADMIN' && dashboardData" class="row mb-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-light fw-bold">Dashboard Overview</div>
+      <div class="card-body">
+        <app-dashboard-chart [customers]="dashboardData.totalCustomers" [accounts]="dashboardData.totalAccounts"
+          [balance]="dashboardData?.totalBalance">
+        </app-dashboard-chart>
+      </div>
+      </div>
   </div>
 
-  <!-- New Account Type Chart -->
-  <!-- <div *ngIf="role === 'ADMIN'" class="card shadow-sm">
-    <div class="card-header bg-light fw-bold">Accounts by Type</div>
-    <div class="card-body">
-      <app-account-type-chart [savingCount]="accountsByType.Saving" [currentCount]="accountsByType.Current">
-      </app-account-type-chart>
-    </div>
-  </div> -->
+  <!-- Accounts by Type Chart -->
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-header bg-light fw-bold">Accounts by Type</div>
+      <div class="card-body">
+        <app-dashboard-accounts-by-type [saving]="accountsByType.Saving" [current]="accountsByType.Current">
+        </app-dashboard-accounts-by-type>
+      </div>
+      </div>
+  </div>
+ </div>
 </div>

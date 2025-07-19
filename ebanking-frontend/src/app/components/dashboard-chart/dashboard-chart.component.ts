@@ -15,24 +15,27 @@ export class DashboardChartComponent implements OnChanges {
   @Input() accounts: number = 0;
   @Input() balance: number = 0;
 
-  barChartLabels: string[] = ['Customers', 'Accounts', 'Total Balance'];
-  barChartType: ChartType = 'bar';
+  barChartLabels: string[] = ['Total Customers', 'Total Accounts', 'Total Balance'];
+  barChartType: ChartType = 'line';
 
-  barChartData: ChartData<'bar', number[], string | string[]> = {
+  barChartData: ChartData<'line', number[], string | string[]> = {
     labels: this.barChartLabels,
     datasets: [
       {
         label: 'Dashboard Stats',
         data: [this.customers, this.accounts, this.balance],
-        backgroundColor: ['#007bff', '#28a745', '#ffc107']
+        borderColor: '#007bff',
+        backgroundColor: 'rgba(0, 123, 255, 0.3)',
+        fill: true,
+        tension: 0.4
       }
     ]
   };
 
-  public chartOptions: ChartConfiguration['options'] = {
+  chartOptions: ChartConfiguration['options'] = {
     responsive: true,
     plugins: {
-      legend: { display: false },
+      legend: { display: true },
       tooltip: { enabled: true }
     },
     scales: {
@@ -41,7 +44,6 @@ export class DashboardChartComponent implements OnChanges {
       }
     }
   };
-
   ngOnChanges(changes: SimpleChanges): void {
     this.barChartData = {
       labels: this.barChartLabels,
@@ -49,9 +51,13 @@ export class DashboardChartComponent implements OnChanges {
         {
           label: 'Dashboard Stats',
           data: [this.customers, this.accounts, this.balance],
-          backgroundColor: ['#007bff', '#28a745', '#ffc107']
+          borderColor: '#007bff',
+          backgroundColor: 'rgba(0, 123, 255, 0.3)',
+          fill: true,
+          tension: 0.4
         }
       ]
     };
   }
+
 }

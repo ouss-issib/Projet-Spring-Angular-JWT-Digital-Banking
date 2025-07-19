@@ -15,4 +15,8 @@ export class DashboardService {
   getDashboardData(): Observable<DashboardData> {
     return this.http.get<DashboardData>(this.backendUrl);
   }
+
+  getAccountsByType(): Observable<{ Saving: number; Current: number }> {
+    return this.http.get<{ Saving: number; Current: number }>(`${this.backendUrl}/accounts-by-type`);
+  }
 }
