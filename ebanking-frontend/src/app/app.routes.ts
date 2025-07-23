@@ -16,11 +16,13 @@ import { NotAuthorizedComponent } from './components/not-authorized/not-authoriz
 import { RegisterComponent } from './components/register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { authorizationGuard } from './guards/authorization.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path:'', redirectTo: '/login', pathMatch: 'full'},
     { path: 'register', component: RegisterComponent },
+    { path: 'profile', component: ProfileComponent },
     {
       path: 'admin',
       component: AdminTemplateComponent,

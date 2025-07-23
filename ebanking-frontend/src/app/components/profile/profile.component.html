@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <h3>My Profile</h3>
+  <p><strong>Username:</strong> {{ authService.username }}</p>
+  <p><strong>Roles:</strong> {{ authService.roles }}</p>
+
+  <hr>
+  <h5>Change Password</h5>
+  <form (ngSubmit)="changePassword()">
+    <div class="mb-3">
+      <label>Old Password</label>
+      <input type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" required>
+    </div>
+    <div class="mb-3">
+      <label>New Password</label>
+      <input type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword" required>
+    </div>
+    <a class="nav-link" routerLink="/admin"  class="btn btn-danger me-3">
+      Back to Home
+    </a>
+    <button class="btn btn-primary" type="submit">Change Password</button>
+  </form>
+
+  <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
+  <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+</div>
