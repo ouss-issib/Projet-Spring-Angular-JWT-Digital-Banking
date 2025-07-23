@@ -61,5 +61,9 @@ public class AccountServiceImpl implements AccountService {
         return appUserRepository.findAll();
     }
 
+    @Override
+    public void updateUser(AppUser user) {
+        appUserRepository.save(user);
+    }
 
 }

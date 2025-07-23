@@ -1,6 +1,7 @@
 package ma.enset.ebankingbackend.security;
 
 import ma.enset.ebankingbackend.entities.AppUser;
+import ma.enset.ebankingbackend.entities.ChangePasswordRequest;
 import ma.enset.ebankingbackend.services.AccountService;
 import ma.enset.ebankingbackend.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,29 @@ public class SecurityController {
         Jwt jwt = jwtEncoder.encode(params);
         return Map.of("access-token", jwt.getTokenValue());
     }
+
+
+    @PutMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> request, Authentication authentication) {
+        String username = authentication.getName();
+        String oldPassword = request.get("oldPassword");
+        String newPassword = request.get("newPassword");
+
+        AppUser user = userService.getUser(username);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect old password");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.updateUser(user);
+        return ResponseEntity.ok("Password updated successfully");
+    }
+
+
 
     @GetMapping("/profile")
     public Authentication getAuthentication(Authentication authentication){

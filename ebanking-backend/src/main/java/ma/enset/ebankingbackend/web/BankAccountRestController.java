@@ -5,6 +5,7 @@ import ma.enset.ebankingbackend.dtos.*;
 import ma.enset.ebankingbackend.exceptions.BankAccountNotFoundException;
 import ma.enset.ebankingbackend.exceptions.CustomerNotFoundException;
 import ma.enset.ebankingbackend.services.BankAccountService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,11 +18,13 @@ public class BankAccountRestController {
     private BankAccountService bankAccountService;
 
     @GetMapping("/accounts/{id}")
+    @PreAuthorize("hasRole('USER')")
     public BankAccountDTO getBankAccountById(@PathVariable String id) throws BankAccountNotFoundException {
         return bankAccountService.getBankAccount(id);
     }
 
     @GetMapping("/accounts")
+    @PreAuthorize("hasRole('USER')")
     public List<BankAccountDTO> getAllBankAccounts() {
         return bankAccountService.bankAccountList();
     }
@@ -50,11 +53,15 @@ public class BankAccountRestController {
     }
 
     @GetMapping("/accounts/{accountId}/operations")
+    @PreAuthorize("hasRole('USER')")
+
     public List<AccountOperationDTO> getHistoriqueBankAccounts(@PathVariable String accountId) {
         return bankAccountService.accountHistorique(accountId);
     }
 
     @GetMapping("/accounts/{accountId}/pageOperations")
+    @PreAuthorize("hasRole('USER')")
+
     public AccountHistoryDTO getAccountHistory(
             @PathVariable String accountId,
             @RequestParam(name = "page",defaultValue = "0") int page,
@@ -63,6 +70,8 @@ public class BankAccountRestController {
     }
 
     @GetMapping("accounts/by-customer/{customerId}")
+    @PreAuthorize("hasRole('USER')")
+
     public List<BankAccountDTO> getAccountsByCustomer(@PathVariable Long customerId) {
         return bankAccountService.bankAccountList(customerId);
     }
@@ -82,6 +91,8 @@ public class BankAccountRestController {
     }
 
     @GetMapping("/accounts/others/{id}")
+    @PreAuthorize("hasRole('USER')")
+
     public List<BankAccountDTO> getOtherAccounts(@PathVariable String id) {
         return bankAccountService.bankAccountList().stream()
                 .filter(account -> !account.getId().equals(id))
