@@ -101,7 +101,7 @@ Une fois le token expiré, l'utilisateur est automatiquement redirigé vers la p
 | ![](./captures/valiation_profile.png) | ![](./captures/missmatch.png) | ![](./captures/newNavbar.png) |
 
 
-###📊 Dashboard
+### 📊 Dashboard
 
 #### ADMIN
 | Admin DASHBOARD | 
