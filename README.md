@@ -96,9 +96,9 @@ Une fois le token expiré, l'utilisateur est automatiquement redirigé vers la p
 ---
 ### Profil
 
-| ❌ Validation Obliguatoire | ❌ MissMatch Password Confirmation |
-|---|---|
-| ![](./captures/validation_profile.png) | ![](./captures/missmatch.png) |
+| ❌ Validation Obliguatoire | ❌ MissMatch Password Confirmation | Profil |
+|---|---|---|
+| ![](./captures/valiation_profile.png) | ![](./captures/missmatch.png) | ![](./captures/newNavbar.png) |
 
 
 ###📊 Dashboard
