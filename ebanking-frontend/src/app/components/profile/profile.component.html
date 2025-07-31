@@ -5,21 +5,52 @@
 
   <hr>
   <h5>Change Password</h5>
-  <form (ngSubmit)="changePassword()">
-    <div class="mb-3">
+  <form [formGroup]="formGroup" (ngSubmit)="changePassword()">
+    <div class="mb-1">
       <label>Old Password</label>
-      <input type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" required>
+      <input type="password" class="form-control" formControlName="oldPassword" required>
     </div>
-    <div class="mb-3">
+    <div *ngIf="formGroup.get('oldPassword')?.invalid && formGroup.get('oldPassword')?.touched"
+      class="text-danger mb-3">
+      Old password is required.
+    </div>
+    <div class="mb-1">
       <label>New Password</label>
-      <input type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword" required>
+      <input type="password" class="form-control" formControlName="newPassword" required>
     </div>
-    <a class="nav-link" routerLink="/admin"  class="btn btn-danger me-3">
+    <div *ngIf="formGroup.get('newPassword')?.invalid && formGroup.get('newPassword')?.touched"
+      class="text-danger mb-3">
+      New password is required.
+    </div>
+    <div class="mb-1">
+      <label>Confirm New Password</label>
+      <input type="password" class="form-control" formControlName="confirmNewPassword" required>
+    </div>
+    <div *ngIf="formGroup.get('confirmNewPassword')?.invalid && formGroup.get('confirmNewPassword')?.touched"
+      class="mb-3 text-danger">
+      Confirm New password is required.
+    </div>
+    <a class="nav-link" routerLink="/admin" class="btn btn-danger me-3 mt-3">
       Back to Home
     </a>
-    <button class="btn btn-primary" type="submit">Change Password</button>
+    <button class="btn btn-primary mt-3" type="submit">Change Password</button>
   </form>
 
-  <div *ngIf="message" class="alert alert-success mt-3">{{ message }}</div>
-  <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+  <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+
+
+
 </div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+  <div class="toast align-items-center text-bg-success border-0" role="alert" [class.show]="showToast"
+    [class.hide]="!showToast" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-check-circle-fill"></i>
+        {{ successMessage }}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="showToast = false"
+        aria-label="Close"></button>
+    </div>
+  </div>

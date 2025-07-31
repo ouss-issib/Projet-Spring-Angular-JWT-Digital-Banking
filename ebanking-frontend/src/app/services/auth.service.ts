@@ -55,6 +55,18 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  changePassword(oldPassword: string, newPassword: string): Observable<any> {
+    const body = {
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    };
+    return this.http.put(`${this.backendUrl}/change-password`, body,
+      {
+        responseType : "text",
+      });
+  }
+
+
   loadJwtFromLocalStorage() {
     const token = localStorage.getItem('access-token');
     if (token) {
