@@ -69,7 +69,7 @@ L'application est désormais sécurisée avec **Spring Security** et **JWT**. De
 
 Connexion réussie avec stockage du token JWT dans le navigateur (LocalStorage).
 
-| 🔓 Authentification Réussie | Home User | Home Admin
+| 🔓 Authentification Réussie | Home User | Home Admin |
 |---|---|---|
 | ![](./captures/after-token.png) | ![](./captures/welcome-user.png) | ![](./captures/welcome-admin.png) |
 
