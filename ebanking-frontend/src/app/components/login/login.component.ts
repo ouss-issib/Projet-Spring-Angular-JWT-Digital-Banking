@@ -17,11 +17,17 @@ export class LoginComponent {
   loading = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    if (this.authService.isAuthenticated) {
+      this.router.navigate(['/admin']);
+    }
+
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
+
+
 
   onLogin() {
     if (this.loginForm.invalid) return;
@@ -29,10 +35,9 @@ export class LoginComponent {
     this.error = null;
     const { username, password } = this.loginForm.value;
     this.authService.login(username, password).subscribe({
-      next: (data) => {
-        this.authService.loadProfile(data);
-        this.loading = false;
-        this.router.navigateByUrl('/admin');
+      next: (response) => {
+        this.authService.loadProfile({ 'access-token': response['access-token'] || response['access_token'] });
+        this.router.navigate(['/admin']);
       },
       error: (err) => {
         this.loading = false;

@@ -13,13 +13,15 @@ import { AdminTemplateComponent } from './components/admin-template/admin-templa
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
+import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { authorizationGuard } from './guards/authorization.guard';
-import { ProfileComponent } from './components/profile/profile.component';
+import { RedirectIfAuthenticatedGuard } from './guards/redirect-if-authenticated.guard';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent  , canActivate: [RedirectIfAuthenticatedGuard]
+    },
     { path:'', redirectTo: '/login', pathMatch: 'full'},
     { path: 'register', component: RegisterComponent },
     { path: 'profile', component: ProfileComponent },

@@ -9,13 +9,16 @@ import { environment } from '../environments/environment';
 export class AuthService {
   backendUrl = environment.baseUrl + '/auth';
 
-  isAuthenticated: boolean = false;
   roles: string | undefined;
   username: string | undefined;
   accessToken!: string | undefined;
 
   private http = inject(HttpClient);
   private router = inject(Router);
+
+  constructor() {
+    this.loadJwtFromLocalStorage();
+  }
 
   login(username: string, password: string): Observable<any> {
     const body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
@@ -31,8 +34,10 @@ export class AuthService {
     return this.http.post(`${this.backendUrl}/register`, body, { headers });
   }
 
+
+
+
   loadProfile(data: any) {
-    this.isAuthenticated = true;
     this.accessToken = data['access-token'];
 
     if (!this.accessToken) {
@@ -47,7 +52,6 @@ export class AuthService {
 
 
   logout() {
-    this.isAuthenticated = false;
     this.roles = undefined;
     this.username = undefined;
     this.accessToken = undefined;
@@ -64,6 +68,19 @@ export class AuthService {
       {
         responseType : "text",
       });
+  }
+
+  get isAuthenticated(): boolean {
+    const token = this.accessToken || localStorage.getItem('access-token');
+    if (!token) return false;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const now = Math.floor(Date.now() / 1000);
+      return decoded.exp && decoded.exp > now;
+    } catch (e) {
+      return false;
+    }
   }
 
 
