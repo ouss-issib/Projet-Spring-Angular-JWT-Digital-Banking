@@ -29,21 +29,33 @@
         </li>
       </ul>
       <div class="d-flex align-items-center bg-primary rounded-3 px-3 py-2 ms-auto" *ngIf="authService.isAuthenticated">
+
         <ul class="navbar-nav flex-row">
-          <li class="nav-item">
-            <span class="navbar-text text-white me-3">
-              <i class="bi bi-person-circle"></i> {{ authService.username }}
-            </span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/profile" *ngIf="authService.isAuthenticated">
-              <i class="bi bi-person-lines-fill"></i> Profile
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+              <span class="navbar-text text-white me-3">
+                <i class="bi bi-person-circle"></i> {{ authService.username }}
+              </span>
             </a>
+            <ul class="dropdown-menu w-1/2">
+              <li class="nav-item">
+                <a class="dropdown-item" routerLink="/profile" routerLinkActive="active" routerLink="/profile"
+                  *ngIf="authService.isAuthenticated">
+                  <i class="bi bi-person-lines-fill"></i> Profile
+                </a>
+              </li>
+              <li class="nav-item m-1">
+                <button class="dropdown-item text-white bg-danger " routerLink="/profile" routerLinkActive="active"
+                  *ngIf="authService.isAuthenticated" (click)="logout()">
+                  <i class="bi bi-box-arrow-left  me-2"></i> Logout</button>
+              </li>
+            </ul>
           </li>
 
-          <li class="nav-item">
-            <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
-          </li>
+
+
+
         </ul>
       </div>
       <div class="d-flex align-items-center ms-auto" *ngIf="!authService.isAuthenticated">
