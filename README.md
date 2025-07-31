@@ -71,7 +71,7 @@ Connexion réussie avec stockage du token JWT dans le navigateur (LocalStorage).
 
 | 🔓 Authentification Réussie | Home User | Home Admin |
 |---|---|---|
-| ![](./captures/after-token.png) | ![](./captures/welcome-user.png) | ![](./captures/welcome-admin.png) |
+| ![](./captures/after-token.png) | ![](./captures/welcome-user.png) | ![](./captures/welcome.png) |
 
 ---
 
